@@ -2,7 +2,7 @@
 
 **Get your own Google Compute Engine virtual machine (VM) with the simple push of a button.**
 
-![Image: Shells on Demand Appliance (Google Compute Engine)](./img/soda-gce-photo.jpg)
+[![Image: Shells on Demand Appliance (Google Compute Engine)](./img/soda-gce-photo.jpg)](./img/README.md)
 
 This project is intended to show how quickly and easily virtual machines can be configured and set up using Google Cloud and Infrastructure as Code (IaC) tools.
 You have the choice between four Linux based operating systems.

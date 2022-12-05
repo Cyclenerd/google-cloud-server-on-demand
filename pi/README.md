@@ -6,6 +6,8 @@ A Raspberry Pi is used to send the command to create a VM after a button is pres
 > I am using a Raspberry Pi 4 with Raspberry Pi OS Lite (64-bit) based on Debian version 11 (bullseye).
 > An older Raspberry Pi 3 with 64-bit Linux should also work.
 
+![Image: Raspberry Pi with printer](../img/soda-gce-open.jpg)
+
 ## Operating System
 
 1. [Download](https://www.raspberrypi.com/software/operating-systems/#raspberry-pi-os-64-bit) Raspberry Pi OS Lite (64-bit) (not with desktop).
