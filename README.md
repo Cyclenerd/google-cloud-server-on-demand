@@ -104,6 +104,10 @@ All components put together correctly result in the Shells on Demand Appliance G
 ![Bagde: Rocky Linux](https://img.shields.io/badge/Rocky%20Linux-10B981.svg?logo=rockylinux&logoColor=white)
 ![Bagde: openSUSE](https://img.shields.io/badge/openSUSE-73BA25.svg?logo=opensuse&logoColor=white)
 
+https://user-images.githubusercontent.com/176242/205736692-b19bca68-a94c-4e95-8c32-79a9f7dfc7a9.mp4
+
+[📺 YouTube Video](https://www.youtube.com/watch?v=9a_9sfi7aaU)
+
 In order to create a VM, many steps are carried out.
 Everything goes very fast.
 While the user is already holding his paper with login information,
