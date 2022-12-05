@@ -1,0 +1,17 @@
+# Turn VM back on
+steps:
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» VARIABLES"
+        echo 'Instance ID : ${_INSTANCE_ID}'
+        echo 'Zone        : ${_ZONE}'
+        echo 'Project ID  : ${_PROJECT_ID}'
+        echo 'JSON Body   : ${_JSON_BODY}'
+        echo
+        cd "/workspace/cloudbuild/" || exit 9
+        bash on-again.sh "${_INSTANCE_ID}" "${_ZONE}" "${_PROJECT_ID}" || exit 9
+tags: ["on-again-gce-vm"]
+timeout: 600s

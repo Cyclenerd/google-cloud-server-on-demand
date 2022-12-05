@@ -1,0 +1,226 @@
+---
+
+- name: Setup
+  hosts: all
+  vars:
+    username: pi
+    hostname: soda
+    ntp_pool_server: de.pool.ntp.org
+    timezone: Europe/Berlin
+    ansible_python_interpreter: /usr/bin/python3
+  become: true
+  tasks:
+    # Software
+    - name: Update repositories
+      ansible.builtin.apt:
+        name: nano
+        update_cache: true
+    - name: Install a list of packages
+      ansible.builtin.apt:
+        pkg:
+          - git
+          - screen
+          - cups
+          - libcupsimage2
+          - qrencode
+          - libpng-dev
+          - python3-gpiozero
+          - python3-pip
+          - openssl
+          - hostapd
+
+    - name: Install Python Client for Google Cloud Pub/Sub
+      ansible.builtin.pip:
+        name: google-cloud-pubsub
+    - name: Install Python library to manipulate ESC/POS printers
+      ansible.builtin.pip:
+        name: python-escpos
+
+    # Hostname
+    - name: Network - Change hostname
+      ansible.builtin.copy:
+        dest: /etc/hostname
+        mode: '0644'
+        owner: root
+        group: root
+        content: |
+          {{ hostname | lower }}
+    - name: Network - Add hostname to hosts
+      ansible.builtin.copy:
+        dest: /etc/hosts
+        mode: '0644'
+        owner: root
+        group: root
+        content: |
+          # Ansible managed
+          127.0.0.1 localhost
+          127.0.1.1 raspberrypi {{ hostname | lower }}
+          ::1     ip6-localhost ip6-loopback
+          fe00::0 ip6-localnet
+          ff00::0 ip6-mcastprefix
+          ff02::1 ip6-allnodes
+          ff02::2 ip6-allrouters
+
+    # DHCP with LAN fallback
+    - name: Network - Change DHCP config
+      ansible.builtin.copy:
+        src: "dhcpd.conf"
+        dest: "/etc/dhcpcd.conf"
+        mode: '0664'
+        owner: root
+        group: netdev
+
+    # Wi-Fi Access Point
+    - name: Network - Disable Wi-Fi access point
+      ansible.builtin.service:
+        name: hostapd
+        state: stopped
+        enabled: false
+    - name: Network - Change Wi-Fi AP config
+      ansible.builtin.copy:
+        src: "hostapd.conf"
+        dest: "/etc/hostapd/hostapd.conf"
+        mode: '0644'
+        owner: root
+        group: root
+    - name: Network - Set Wi-Fi AP config
+      ansible.builtin.lineinfile:
+        path: /etc/default/hostapd
+        regexp: '^DAEMON_CONF'
+        line: 'DAEMON_CONF="/etc/hostapd/hostapd.conf"'
+    - name: Network - Set Wi-Fi AP passcode
+      ansible.builtin.lineinfile:
+        path: /etc/hostapd/hostapd.conf
+        regexp: '^wpa_passphrase'
+        line: "wpa_passphrase={{ wpa_passphrase }}"
+      when:
+        wpa_passphrase is defined
+    - name: Network - Enable Wi-Fi access point
+      ansible.builtin.service:
+        name: hostapd
+        state: restarted
+        enabled: true
+      when:
+        wpa_passphrase is defined
+
+    # NTP
+    - name: NTP - Pool directory
+      ansible.builtin.file:
+        path: /etc/systemd/timesyncd.conf.d
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+    - name: NTP - pool
+      ansible.builtin.copy:
+        dest: /etc/systemd/timesyncd.conf.d/ZZ-00-pool.conf
+        mode: '0644'
+        owner: root
+        group: root
+        content: |
+          # Ansible managed
+          [Time]
+          NTP={{ ntp_pool_server | default('pool.ntp.org') }}
+          FallbackNTP=ntp.ubuntu.com
+    - name: NTP - Restart
+      ansible.builtin.service:
+        name: systemd-timesyncd
+        state: restarted
+        enabled: true
+
+    # Timezone
+    - name: Set timezone
+      timezone:
+        name: "{{ timezone | default('UTC') }}"
+
+    # User
+    - name: User - Groups
+      ansible.builtin.user:
+        name: "{{ username }}"
+        shell: /bin/bash
+        groups: adm,lp,dialout,sudo,users,input,pi,gpio,lpadmin
+        create_home: true
+        append: true
+
+    # Config
+    - name: Screen - Config
+      ansible.builtin.copy:
+        dest: "/home/{{ username }}/.screenrc"
+        mode: '0644'
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        content: |
+          # Ansible managed
+          vbell off
+          vbell_msg "  Ring, Ring!!  "
+          autodetach on
+          startup_message off
+          crlf off
+          defscrollback 5000
+          silencewait 15
+          termcapinfo xterm-256color|xterm-color|xterm|xterms|xs|rxvt ti@:te@
+          bindkey "^[k" eval "copy" "stuff ^b"
+          bindkey "^k" eval "copy" "stuff k"
+          bindkey -m "^[k" stuff ^b
+          bindkey -m "^k" stuff k
+          screen -t SODA bash "$HOME/soda/start.sh"
+          shell bash
+    - name: Bash - Aliases
+      ansible.builtin.copy:
+        dest: "/home/{{ username }}/.bash_aliases"
+        mode: '0644'
+        owner: "{{ username }}"
+        group: "{{ username }}"
+        content: |
+          # Ansible managed
+          alias ll='ls -lah'
+          alias reboot='sudo reboot'
+          alias poweroff='sudo poweroff'
+          alias shutdown='sudo shutdown -h now'
+          alias temp='/usr/bin/vcgencmd measure_temp'
+          alias screen='echo Type soda to connect to screen.'
+          alias soda='/usr/bin/screen -dr'
+          alias newscreen='/usr/bin/screen'
+
+    # SODA
+    - name: SODA - Create directory
+      ansible.builtin.file:
+        path: "/home/{{ username }}/soda"
+        state: directory
+        mode: '0755'
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+    # Image
+    - name: SODA - Copy image
+      ansible.builtin.copy:
+        src: "image.png"
+        dest: "/home/{{ username }}/soda/image.png"
+        mode: '0644'
+        owner: "{{ username }}"
+        group: "{{ username }}"
+
+    # Scripts
+    - name: SODA - Copy scripts
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "/home/{{ username }}/soda/{{ item }}"
+        mode: '0755'
+        owner: "{{ username }}"
+        group: "{{ username }}"
+      loop:
+        - blink.py
+        - buttons.py
+        - start.sh
+        - variables.sh
+        - pi-private-key.json
+
+    # Cron
+    - name: SODA - Add to crontab
+      ansible.builtin.cron:
+        name: "Start SODA in screen after reboot"
+        special_time: reboot
+        job: "sleep 30 && /usr/bin/screen -d -m"
+        user: "{{ username }}"
+
+# EOF

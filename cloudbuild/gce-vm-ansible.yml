@@ -1,0 +1,153 @@
+---
+
+- name: Setup
+  hosts: all
+  # Default variables, overwrite with --extra-vars (or -e ) argument
+  vars:
+    username: default
+    password: $6$lHA3Ch1cPXn9HpNO$EI/O6TyDd0vUIPc1s958U/D3gNHWqvhGcFMVkR6T4sCtWtBEnolzGKCE0s9rWvVMRGfRxIjGQe9OlSRODLZmP/
+  become: true
+
+  tasks:
+    #############################################
+    # ALL
+    #############################################
+    - name: Allow SSH connection with password
+      ansible.builtin.replace:
+        path: /etc/ssh/sshd_config
+        regexp: 'PasswordAuthentication no'
+        replace: 'PasswordAuthentication yes'
+    - name: Restart SSH daemon
+      ansible.builtin.service:
+        name: sshd
+        state: restarted
+        enabled: true
+    - name: Add the user with a bash shell, add to group google-sudoers
+      ansible.builtin.user:
+        name: "{{ username }}"
+        # Password hash (sha512)
+        # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html#parameter-password
+        password: "{{ password }}"
+        shell: /bin/bash
+        groups: google-sudoers
+        create_home: yes
+        append: yes
+
+    #############################################
+    # Debian 11 / Ubuntu 22.04 LTS
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+    #############################################
+    - name: Install Lighttpd on Debian
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+      ansible.builtin.apt:
+        name: lighttpd
+        state: present
+        update_cache: yes
+    - name: Install PHP on Debian
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+      ansible.builtin.apt:
+        name: php-cgi
+        state: present
+    - name: Enable FastCGI config on Debian
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+      file:
+        src: "/etc/lighttpd/conf-available/10-fastcgi.conf"
+        dest: "/etc/lighttpd/conf-enabled/10-fastcgi.conf"
+        state: link
+    - name: Enable PHP config on Debian
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+      file:
+        src: "/etc/lighttpd/conf-available/15-fastcgi-php.conf"
+        dest: "/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
+        state: link
+    - name: Restart Lighttpd daemon on Debian
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+      ansible.builtin.service:
+        name: lighttpd
+        state: restarted
+        enabled: true
+    - name: Copy HTML index.php to Debian
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+      ansible.builtin.copy:
+        src: /workspace/index.php
+        dest: /var/www/html/index.php
+        owner: root
+        group: root
+        mode: '0755'
+
+    #############################################
+    # Rock Linux 9
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dnf_module.html
+    #############################################
+    - name: Install GNU nano on Rocky Linux
+      when: ansible_distribution == "Rocky"
+      ansible.builtin.dnf:
+        name: nano
+        state: present
+        update_cache: yes
+    - name: Install Nginx on Rocky Linux
+      when: ansible_distribution == "Rocky"
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+    - name: Install PHP on Rocky Linux
+      when: ansible_distribution == "Rocky"
+      ansible.builtin.dnf:
+        name: php-fpm
+        state: present
+    - name: Start Nginx daemon on Rocky Linux
+      when: ansible_distribution == "Rocky"
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: Copy HTML index.php to Rocky Linux
+      when: ansible_distribution == "Rocky"
+      ansible.builtin.copy:
+        src: /workspace/index.php
+        dest: /usr/share/nginx/html/index.php
+        owner: root
+        group: root
+        mode: '0755'
+
+    #############################################
+    # openSUSE Leap (15)
+    # https://docs.ansible.com/ansible/latest/collections/community/general/zypper_module.html
+    #############################################
+    - name: Install GNU nano on openSUSE
+      when: ansible_distribution == "openSUSE Leap"
+      community.general.zypper:
+        name: nano
+        state: present
+        update_cache: yes
+    - name: Install Apache on openSUSE
+      when: ansible_distribution == "openSUSE Leap"
+      community.general.zypper:
+        name: apache2
+        state: present
+    - name: Install PHP on openSUSE
+      when: ansible_distribution == "openSUSE Leap"
+      community.general.zypper:
+        name: php8
+        state: present
+    - name: Install PHP Module for Apache on openSUSE
+      when: ansible_distribution == "openSUSE Leap"
+      community.general.zypper:
+        name: apache2-mod_php8
+        state: present
+    - name: Start Apache daemon on openSUSE
+      when: ansible_distribution == "openSUSE Leap"
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+    - name: Copy HTML index.php to openSUSE
+      when: ansible_distribution == "openSUSE Leap"
+      ansible.builtin.copy:
+        src: /workspace/index.php
+        dest: /srv/www/htdocs/index.php
+        owner: root
+        group: root
+        mode: '0755'
+
+# EOF

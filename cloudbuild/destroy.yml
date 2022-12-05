@@ -1,0 +1,58 @@
+# Destroy VM
+steps:
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» VARIABLES"
+        echo 'Destroy Build ID       : ${_DESTROY_BUILD}'
+        echo 'Terraform State Bucket : ${_STATE_BUCKET}'
+        echo 'Build ID               : $BUILD_ID'
+        echo 'Project ID             : $PROJECT_ID'
+        echo 'Project Nr             : $PROJECT_NUMBER'
+        echo 'Region                 : $LOCATION'
+
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» TERRAFORM"
+        echo
+        echo "Change dir"
+        cd "/workspace/cloudbuild/" || exit 9
+        echo
+        echo "Get variables (TFVARS)..."
+        gsutil cp "gs://${_STATE_BUCKET}/output.tfvars" "terraform.tfvars" || exit 9
+        echo
+        echo "Create state file with bucket and prefix..."
+        {
+          echo 'terraform {'
+          echo '  backend "gcs" {'
+          echo '    bucket  = "${_STATE_BUCKET}"'
+          echo '    prefix  = "terraform/state/gce-vm/${_DESTROY_BUILD}"'
+          echo '  }'
+          echo '}'
+        } > "terraform-state.tf" || exit 9
+        cat "terraform-state.tf" || exit 9
+        echo
+        echo "Create .terraform directory..."
+        mkdir -p "/workspace/test/integration/tmp/.terraform"
+        echo
+        echo "Create fake SSH pub key..."
+        echo "fake DESTROY ansible@cloudbuild" > "/workspace/ssh.key.pub" || exit 9
+        echo
+        echo "Initialize"
+        terraform init || exit 9
+        echo
+        echo "» DESTROY"
+        echo
+        terraform apply -destroy \
+          -auto-approve \
+          -var="build_id=${_DESTROY_BUILD}" \
+          -var="project=$PROJECT_ID" \
+          -var="region=$LOCATION" || exit 9
+
+tags: ["destroy-gce-vm"]
+timeout: 1200s

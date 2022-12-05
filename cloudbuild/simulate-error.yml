@@ -1,0 +1,11 @@
+# Simulate Google Cloud Build job error
+steps:
+  - name: bash:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "Simulate errors in Cloud Build job. Exit with return code 9."
+        exit 9
+tags: ["simulate-error"]
+timeout: 600s

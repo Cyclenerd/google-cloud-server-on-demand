@@ -1,0 +1,118 @@
+# Create VM
+steps:
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» JSON"
+        echo "Message Data:"
+        echo '${_JSON_DATA}'
+        echo '${_JSON_DATA}' > "/workspace/data.json" || exit 9
+        echo "File:"
+        jq < "/workspace/data.json" || exit 9
+        echo
+        echo    "» VARIABLES"
+        echo -n "Image                  : "; jq -er '.image'    < "/workspace/data.json" || exit 9
+        echo -n "Username               : "; jq -er '.username' < "/workspace/data.json" || exit 9
+        echo -n "Password               : "; jq -er '.password' < "/workspace/data.json" || exit 9
+        echo -n "DNS Name               : "; jq -er '.dnsname'  < "/workspace/data.json" || exit 9
+        echo    'Terraform State Bucket : ${_STATE_BUCKET}'
+        echo    'Cloud Build ID         : $BUILD_ID'
+        echo    'Cloud Build Region     : $LOCATION'
+        echo    'Project ID             : $PROJECT_ID'
+        echo    'Project Nr             : $PROJECT_NUMBER'
+        # Exit if SHA512 hash is less than 100 chars
+        if [ $(jq -er '.password' < "/workspace/data.json" | wc -c) -lt "100" ]; then echo "SHA512 password hash too short!"; exit 9; fi
+
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» SSH"
+        echo
+        ssh-keygen -N '' -C 'ansible@cloudbuild' -t ed25519 -f '/workspace/ssh.key' || exit 9
+        echo
+        echo "Public Key :"
+        cat "/workspace/ssh.key.pub" || exit 9
+
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» TERRAFORM"
+        echo
+        echo "Change dir"
+        cd "/workspace/cloudbuild/" || exit 9
+        echo
+        echo "Get variables (TFVARS)..."
+        gsutil cp "gs://${_STATE_BUCKET}/output.tfvars" "terraform.tfvars" || exit 9
+        echo
+        echo "Create state file with bucket and prefix..."
+        {
+          echo 'terraform {'
+          echo '  backend "gcs" {'
+          echo '    bucket  = "${_STATE_BUCKET}"'
+          echo '    prefix  = "terraform/state/gce-vm/${BUILD_ID}"'
+          echo '  }'
+          echo '}'
+        } > "terraform-state.tf" || exit 9
+        cat "terraform-state.tf" || exit 9
+        echo
+        echo "Create .terraform directory..."
+        mkdir -p "/workspace/test/integration/tmp/.terraform"
+        echo
+        echo "Initialize..."
+        terraform init || exit 9
+        echo
+        echo "» APPLY"
+        echo
+        terraform apply \
+          -var="build_id=$BUILD_ID" \
+          -var="dns-name=$(jq -er '.dnsname' < "/workspace/data.json")" \
+          -var="image=$(jq -er '.image' < "/workspace/data.json")" \
+          -auto-approve || exit 9
+
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» WAIT for new GCE instance"
+        echo
+        echo -n "Public NAT IPv4 : '"
+        cat "/workspace/nat_ip.txt" || exit 9
+        echo "'"
+        bash "/workspace/cloudbuild/wait-for-ssh.sh" || exit 9
+
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» ANSIBLE"
+        echo
+        echo "Change dir"
+        cd "/workspace/cloudbuild/" || exit 9
+        echo
+        echo "Create .netrc and set authorization..."
+        echo > "/builder/home/.netrc" || exit 9
+        chmod 600 "/builder/home/.netrc" || exit 9
+        echo
+        echo "Initialize..."
+        echo
+        echo "Try logging in again with SSH to get the Host Key..."
+        ssh -o 'StrictHostKeyChecking=accept-new' -i '/workspace/ssh.key' ansible@$(cat "/workspace/nat_ip.txt") uptime || exit 9
+        echo
+        echo "Run Ansible Playbook..."
+        ansible-playbook "gce-vm-ansible.yml" \
+          -u "ansible" \
+          -e "ansible_ssh_private_key_file=/workspace/ssh.key" \
+          -e "username=$(jq -er '.username' < "/workspace/data.json")" \
+          -e "password=\"$(jq -er '.password' < "/workspace/data.json")\"" \
+          -i $(cat "/workspace/nat_ip.txt"), || exit 9
+
+tags: ["create-gce-vm"]
+timeout: 600s
