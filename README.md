@@ -91,7 +91,6 @@ The following technologies are used:
 
 - [x] [Raspberry Pi OS](https://www.raspberrypi.com/software/operating-systems/)
 - [x] [Python 3](https://www.python.org/)
-- [x] [Go](https://go.dev/)
 </details>
 
 
