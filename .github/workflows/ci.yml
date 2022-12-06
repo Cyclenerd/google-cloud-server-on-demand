@@ -13,12 +13,15 @@ jobs:
     # https://github.com/actions/virtual-environments/
     # [x] shellcheck
     # [x] terraform
+    # [x] ansible
     # [ ] ansible-lint
     # [_] flake8
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt-get install ansible-lint flake8
+        run: |
+          sudo apt-get install ansible-lint flake8 && \
+          sudo ansible-galaxy collection install community.general
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test

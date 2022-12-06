@@ -1,5 +1,23 @@
 #!/usr/bin/env bash
 
+# Versions
+lsb_release -a
+echo
+shellcheck --version || exit 9
+echo
+terraform --version  || exit 9
+echo
+yamllint --version   || exit 9
+echo
+ansible --version              || exit 9
+ansible-lint --version         || exit 9
+ansible-galaxy collection list || exit 9
+echo
+flake8 --version || exit 9
+
+echo
+echo "Testing..."
+
 # Shellcheck
 shellcheck ./*.sh             || exit 9
 shellcheck ../cloudbuild/*.sh || exit 9
