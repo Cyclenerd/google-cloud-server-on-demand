@@ -30,8 +30,8 @@
         password: "{{ password }}"
         shell: /bin/bash
         groups: google-sudoers
-        create_home: yes
-        append: yes
+        create_home: true
+        append: true
 
     #############################################
     # Debian 11 / Ubuntu 22.04 LTS
@@ -42,7 +42,7 @@
       ansible.builtin.apt:
         name: lighttpd
         state: present
-        update_cache: yes
+        update_cache: true
     - name: Install PHP on Debian
       when: ansible_distribution in ["Debian", "Ubuntu"]
       ansible.builtin.apt:
@@ -84,7 +84,7 @@
       ansible.builtin.dnf:
         name: nano
         state: present
-        update_cache: yes
+        update_cache: true
     - name: Install Nginx on Rocky Linux
       when: ansible_distribution == "Rocky"
       ansible.builtin.dnf:
@@ -119,7 +119,7 @@
       community.general.zypper:
         name: nano
         state: present
-        update_cache: yes
+        update_cache: true
     - name: Install Apache on openSUSE
       when: ansible_distribution == "openSUSE Leap"
       community.general.zypper:
