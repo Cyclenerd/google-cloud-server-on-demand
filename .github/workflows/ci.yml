@@ -16,12 +16,10 @@ jobs:
     # [x] ansible
     # [ ] ansible-lint
     # [_] flake8
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Install dependencies
-        run: |
-          sudo apt-get install ansible-lint flake8 && \
-          sudo ansible-galaxy collection install community.general
+        run: sudo apt-get install ansible-lint flake8
       - name: Checkout
         uses: actions/checkout@v3
       - name: Test
