@@ -43,28 +43,30 @@ Raspberry Pi GPIO pinout:
   Markdown table with Raspberry Pi GPIO pinout
   https://github.com/Cyclenerd/raspberry-pi-gpio-pinout-markdown
 -->
-|                   |           | PIN  |      |      | PIN  |          |                  |
-|-------------------|-----------|------|------|------|------|----------|------------------|
-|                   | 3v3 Power | `1`  |  🟧  |  🔴  | `2`  | 5v Power |                  |
-|                   | GPIO 2    | `3`  |  🔵  |  🔴  | `4`  | 5v Power |                  |
-|                   | GPIO 3    | `5`  |  🔵  | [⚫] | `6`  | *Ground* | *Button Ground*  |
-|                   | GPIO 4    | `7`  |  🟢  |  🟣  | `8`  | GPIO 14  |                  |
-|                   | *Ground*  | `9`  |  ⚫  |  🟣  | `10` | GPIO 15  |                  |
-| Button 1 (Blue)   | GPIO 17   | `11` | [🟢] |  🟤  | `12` | GPIO 18  |                  |
-| Button 2 (Yellow) | GPIO 27   | `13` | [🟢] |  ⚫  | `14` | *Ground* |                  |
-| Button 3 (Red)    | GPIO 22   | `15` | [🟢] | [🟢] | `16` | GPIO 23  | Button 4 (Green) |
-|                   | 3v3 Power | `17` |  🟠  |  🟢  | `18` | GPIO 24  |                  |
-|                   | GPIO 10   | `19` |  🟡  |  ⚫  | `20` | *Ground* |                  |
-|                   | GPIO 9    | `21` |  🟡  |  🟢  | `22` | GPIO 25  |                  |
-|                   | GPIO 11   | `23` |  🟡  |  🟡  | `24` | GPIO 8   |                  |
-|                   | *Ground*  | `25` |  ⚫  |  🟡  | `26` | GPIO 7   |                  |
-|                   | GPIO 0    | `27` |  🔵  |  🔵  | `28` | GPIO 1   |                  |
-|                   | GPIO 5    | `29` |  🟢  |  ⚫  | `30` | *Ground* |                  |
-| LED 4 (Green)     | GPIO 6    | `31` | [🟢] |  🟢  | `32` | GPIO 12  |                  |
-| LED 3 (Red)       | GPIO 13   | `33` | [🟢] |  ⚫  | `34` | *Ground* |                  |
-| LED 2 (Yellow)    | GPIO 19   | `35` | [🟤] |  🟢  | `36` | GPIO 16  |                  |
-| LED 1 (Blue)      | GPIO 26   | `37` | [🟢] |  🟤  | `38` | GPIO 20  |                  |
-| *LED Ground*      | *Ground*  | `39` | [⚫] |  🟤  | `40` | GPIO 21  |                  |
+|                   |           | PIN  |    |     | PIN  |          |                  |
+|-------------------|-----------|------|----|----|------|----------|------------------|
+|                   | 3v3 Power | `1`  | 🔶 | 🔴 | `2`  | 5v Power |                  |
+|                   | GPIO 2    | `3`  | 🔵 | 🟥 | `4`  | 5v Power | Fan 5 ¹          |
+|                   | GPIO 3    | `5`  | 🔵 | ⬛ | `6`  | *Ground* | *Fan Ground ¹*    |
+|                   | GPIO 4    | `7`  | 🟢 | 🟣 | `8`  | GPIO 14  |                  |
+| *Button Ground*   | *Ground*  | `9`  | ⬛ | 🟣 | `10` | GPIO 15  |                  |
+| Button 1 (Blue)   | GPIO 17   | `11` | 🟩 | 🟤 | `12` | GPIO 18  |                  |
+| Button 2 (Yellow) | GPIO 27   | `13` | 🟩 | ⚫ | `14` | *Ground* |                  |
+| Button 3 (Red)    | GPIO 22   | `15` | 🟩 | 🟩 | `16` | GPIO 23  | Button 4 (Green) |
+|                   | 3v3 Power | `17` | 🟠 | 🟢 | `18` | GPIO 24  |                  |
+|                   | GPIO 10   | `19` | 🟡 | ⚫ | `20` | *Ground* |                  |
+|                   | GPIO 9    | `21` | 🟡 | 🟢 | `22` | GPIO 25  |                  |
+|                   | GPIO 11   | `23` | 🟡 | 🟡 | `24` | GPIO 8   |                  |
+|                   | *Ground*  | `25` | ⚫ | 🟡 | `26` | GPIO 7   |                  |
+|                   | GPIO 0    | `27` | 🔵 | 🔵 | `28` | GPIO 1   |                  |
+|                   | GPIO 5    | `29` | 🟢 | ⚫ | `30` | *Ground* |                  |
+| LED 4 (Green)     | GPIO 6    | `31` | 🟩 | 🟢 | `32` | GPIO 12  |                  |
+| LED 3 (Red)       | GPIO 13   | `33` | 🟩 | ⚫ | `34` | *Ground* |                  |
+| LED 2 (Yellow)    | GPIO 19   | `35` | 🟫 | 🟢 | `36` | GPIO 16  |                  |
+| LED 1 (Blue)      | GPIO 26   | `37` | 🟩 | 🟤 | `38` | GPIO 20  |                  |
+| *LED Ground*      | *Ground*  | `39` | ⬛ | 🟤 | `40` | GPIO 21  |                  |
+
+¹ = Optional 5V fan like the [NF-A4x10 5V](https://noctua.at/en/nf-a4x10-5v)
 
 ![Image: Raspberry Pi GPIO pinout](../img/raspberry-pi-soda.png)
 
