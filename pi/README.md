@@ -129,7 +129,8 @@ The script waits for the button input and sends a message via Pub/Sub.
 
 Enter `soda` to get the script it in the foreground.
 
-Use key combination <kbd>Ctrl</kbd> + <kbd>d</kbd> to get back to the normal terminal.
+Use key combination <kbd>Ctrl</kbd> + <kbd>a</kbd>,
+and subsequently pressing <kbd>d</kbd> to get back to the normal terminal.
 
 ## Network
 
