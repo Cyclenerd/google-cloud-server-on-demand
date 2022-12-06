@@ -1,0 +1,3 @@
+---
+kinds:
+  - playbook: "**/*.{yml,yaml}"

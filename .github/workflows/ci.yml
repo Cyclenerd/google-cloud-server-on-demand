@@ -1,0 +1,25 @@
+name: "CI"
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    # The type of runner that the job will run on
+    # https://github.com/actions/virtual-environments/
+    # [x] shellcheck
+    # [x] terraform
+    # [ ] ansible-lint
+    # [_] flake8
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get install ansible-lint flake8
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test
+        run: cd t && bash test.sh
