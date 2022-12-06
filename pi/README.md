@@ -98,7 +98,7 @@ Connect the thermal receipt printer via USB to the Raspberry Pi.
 
 Copy the required scripts and programs to turn the Raspberry Pi into the "Shells on Demand Appliance".
 
-> ** Warning **
+> **Warning**
 > Perform these steps only after you have set up Google Cloud Platform as described in the [gcp](../gcp/) folder.
 
 This is also automated. Run the following [Ansible playbook](./pi-soda.yml):
