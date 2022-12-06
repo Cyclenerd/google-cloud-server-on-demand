@@ -24,6 +24,7 @@ import base64
 import json
 import requests
 
+
 def discord(data: dict, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
     Args:
@@ -33,18 +34,18 @@ def discord(data: dict, context):
 
     # Discord Webhook URL
     url = os.getenv('DISCORD_WEBHOOK_URL')
-    reqex = re.search('discord(?:app)?\.com\/api\/webhooks\/\d+/[^/?]+', url)
+    reqex = re.search('discord(?:app)?\\.com\\/api\\/webhooks\\/\\d+/[^/?]+', url)
     if reqex:
-        print(f"[OK] Discord webhook URL")
+        print("[OK] Discord webhook URL")
     else:
-        sys.exit(f"[ERROR] Invalid Discord webhook URL!")
+        sys.exit("[ERROR] Invalid Discord webhook URL!")
 
     # Pub/Sub message
     pubsub_data = base64.b64decode(data["data"]).decode("utf-8")
     print(f"Data: {pubsub_data}")
 
     # Decode JSON
-    pubsub_json         = json.loads(pubsub_data)
+    pubsub_json = json.loads(pubsub_data)
     pubsub_text_payload = pubsub_json["textPayload"]
     print(f"Text Payload: {pubsub_text_payload}")
     pubsub_build_id = pubsub_json["resource"]["labels"]["build_id"]
@@ -62,16 +63,16 @@ def discord(data: dict, context):
         data = {}
         data['embeds'] = []
         embed = {}
-        embed['title']              = f'GCB {pubsub_text_payload}'
-        embed['description']        = f'Build ID:\n{pubsub_build_id}'
-        embed['url']                = f'{console_url};region=global/{pubsub_build_id}?project={pubsub_project_id}'
-        embed['timestamp']          = f'{pubsub_timestamp}'
-        embed['color']              = '16711680'
-        embed['author']             = {}
-        embed['author']['name']     = f'Project: {pubsub_project_id}'
-        embed['author']['url']      = f'{console_url}?project={pubsub_project_id}'
-        embed['footer']             = {}
-        embed['footer']['text']     = 'Google Cloud Build'
+        embed['title'] = f'GCB {pubsub_text_payload}'
+        embed['description'] = f'Build ID:\n{pubsub_build_id}'
+        embed['url'] = f'{console_url};region=global/{pubsub_build_id}?project={pubsub_project_id}'
+        embed['timestamp'] = f'{pubsub_timestamp}'
+        embed['color'] = '16711680'
+        embed['author'] = {}
+        embed['author']['name'] = f'Project: {pubsub_project_id}'
+        embed['author']['url'] = f'{console_url}?project={pubsub_project_id}'
+        embed['footer'] = {}
+        embed['footer']['text'] = 'Google Cloud Build'
         embed['footer']['icon_url'] = 'https://i.imgur.com/hO7DkUK.png'
         # Image source: https://github.com/GoogleCloudBuild
         data['embeds'].append(embed)
