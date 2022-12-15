@@ -268,7 +268,7 @@ Get notified via [Discord](https://discord.com/) when a Cloud Build job is faile
 	terraform apply
 	```
 
-You can test the notification with the manual trigger `simulate-error`.
+You can test the notification with the manual Cloud Build trigger `simulate-error`.
 
 ### Artifact Registry repository
 
@@ -278,7 +278,7 @@ The image then does not have to be downloaded from Docker Hub during the Cloud B
 [<img src="./img/copy-image.png?v1" alt="" width="469">](./img/copy-image.png)
 
 1. Copy the image by running the manual trigger `copy-image`.
-1. Replace `cyclenerd/google-cloud-gcp-tools-container:latest` with `[LOCATION]-docker.pkg.dev/[PROJECT_ID]/cointainer/google-cloud-gcp-tools-container:latest` in `cloudbuild` YAML files.
+1. Replace `cyclenerd/google-cloud-gcp-tools-container:latest` with `[LOCATION]-docker.pkg.dev/[PROJECT_ID]/cointainer/google-cloud-gcp-tools-container:latest` in the Cloud Build YAML files (i.e. [`create.yml`](./cloudbuild/create.yml)) in folder the [cloudbuild](./cloudbuild/).
 1. Push changes to Cloud Source repository:
 	```bash
 	git push cloudsource
