@@ -26,7 +26,7 @@ resource "google_cloudbuild_trigger" "create" {
   # https://cloud.google.com/build/docs/automate-builds-pubsub-events
   substitutions = {
     _JSON_DATA    = "$(body.message.data)"
-    _STATE_BUCKET = "${google_storage_bucket.state.name}"
+    _STATE_BUCKET = google_storage_bucket.state.name
   }
 
   # Common Expression Language filter

@@ -4,7 +4,7 @@ resource "google_pubsub_topic" "logsink" {
   project = google_project.my.project_id
   name    = "pubsub-system-event-logsink"
   message_storage_policy {
-    allowed_persistence_regions = ["${var.region}"]
+    allowed_persistence_regions = [var.region]
   }
   labels = {
     "terraform" = "true"

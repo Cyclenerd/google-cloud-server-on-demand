@@ -27,7 +27,7 @@ resource "google_cloudbuild_trigger" "destroy" {
   substitutions = {
     _JSON_BODY     = "$(body.message)"
     _DESTROY_BUILD = "$(body.message.data.destroy)"
-    _STATE_BUCKET  = "${google_storage_bucket.state.name}"
+    _STATE_BUCKET  = google_storage_bucket.state.name
   }
 
   # Common Expression Language filter

@@ -18,33 +18,33 @@
  * Variables
  *****************************************************************************/
 
- variable "build_id" {
-  type     = string
-  nullable = false
+variable "build_id" {
+  type        = string
+  nullable    = false
   description = "Google Cloud Build ID (is passed by Cloud Build)"
 }
 
 variable "project" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "Google Cloud project ID"
 }
 
 variable "region" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "Google Cloud region"
 }
 
 variable "zone" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "Zone in Google Cloud region"
 }
 
 variable "scheduler-region" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "Google Cloud region for Google Cloud scheduler"
 }
 
@@ -55,27 +55,27 @@ variable "expires" {
 }
 
 variable "network" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "VPC network"
 }
 
 variable "subnetwork" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "VPC subnetwork"
 }
 
 variable "dns-name" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "DNS name for VM"
-  default = "cname-for-a-dns-name"
+  default     = "cname-for-a-dns-name"
 }
 
 variable "dns-zone" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "Google Cloud DNS managed zone name"
 }
 
@@ -98,40 +98,40 @@ variable "sa-compute" {
 }
 
 variable "machine_type" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "Google Compute Engine machine type"
-  default = "g1-small"
+  default     = "g1-small"
 }
 
 variable "image" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "Google Compute Engine operating system image"
-  default = "debian-cloud/debian-11"
+  default     = "debian-cloud/debian-11"
 }
 
 variable "ansible_ssh_pub_key" {
-  type     = string
-  nullable = false
+  type        = string
+  nullable    = false
   description = "SSH public key for Ansible"
-  default = "/workspace/ssh.key.pub"
+  default     = "/workspace/ssh.key.pub"
 }
 
 locals {
   // Split build ID, use first part as name
-  name           = "${element(split("-", var.build_id),0)}"
-  timestamp      = "${timestamp()}"
-  today          = "${formatdate("YYYY-MM-DD", local.timestamp)}"
-  expires        = "${var.expires}m"
+  name      = element(split("-", var.build_id), 0)
+  timestamp = timestamp()
+  today     = formatdate("YYYY-MM-DD", local.timestamp)
+  expires   = "${var.expires}m"
   # Calculate when the instance should be destroyed
   # https://developer.hashicorp.com/terraform/language/functions/timeadd
-  destroy        = "${timeadd(local.timestamp, local.expires)}"
+  destroy = timeadd(local.timestamp, local.expires)
   # https://www.terraform.io/language/functions/formatdate
-  destroy_month  = "${formatdate("M", local.destroy)}" # Month number with no padding, like "1" for January.
-  destroy_day    = "${formatdate("D", local.destroy)}" # Day of month number with no padding, like "2".
-  destroy_hour   = "${formatdate("h", local.destroy)}" # 24-hour number unpadded, like "2".
-  destroy_minute = "${formatdate("m", local.destroy)}" # Minute within hour unpadded, like "5".
+  destroy_month  = formatdate("M", local.destroy) # Month number with no padding, like "1" for January.
+  destroy_day    = formatdate("D", local.destroy) # Day of month number with no padding, like "2".
+  destroy_hour   = formatdate("h", local.destroy) # 24-hour number unpadded, like "2".
+  destroy_minute = formatdate("m", local.destroy) # Minute within hour unpadded, like "5".
 }
 
 /*****************************************************************************
@@ -140,8 +140,8 @@ locals {
 
 
 provider "google" {
-  project = "${var.project}"
-  region  = "${var.region}"
+  project = var.project
+  region  = var.region
   zone    = "${var.region}-${var.zone}"
 }
 
@@ -152,8 +152,8 @@ provider "google" {
 # Reserve external static IP for VM
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address
 resource "google_compute_address" "external-static-ip" {
-  name       = "ip-${local.name}"
-  region     = "${var.region}"
+  name   = "ip-${local.name}"
+  region = var.region
 }
 
 # Create GCE instance (VM)
@@ -161,19 +161,19 @@ resource "google_compute_address" "external-static-ip" {
 resource "google_compute_instance" "vm" {
   name         = "gce-${local.name}"
   description  = "GCE instance (Terraform managed)"
-  machine_type = "${var.machine_type}"
+  machine_type = var.machine_type
   zone         = "${var.region}-${var.zone}"
   labels = {
     "terraform" = "true"
-    "build"   = var.build_id
-    "created" = local.today
+    "build"     = var.build_id
+    "created"   = local.today
   }
   boot_disk {
     auto_delete = true
     initialize_params {
       size  = 25
       type  = "pd-balanced"
-      image = "${var.image}"
+      image = var.image
     }
   }
   network_interface {
@@ -211,7 +211,7 @@ resource "google_dns_record_set" "a" {
   #name = "${local.name}.${google_dns_managed_zone.dns.dns-name}"
   #managed_zone = google_dns_managed_zone.dns.name
   name         = "${local.name}.${var.dns-domain}"
-  managed_zone = "${var.dns-zone}"
+  managed_zone = var.dns-zone
   type         = "A"
   ttl          = 300
   rrdatas      = [google_compute_instance.vm.network_interface[0].access_config[0].nat_ip]
@@ -221,7 +221,7 @@ resource "google_dns_record_set" "a" {
 # Create DNS TXT record with long Cloud Build ID
 resource "google_dns_record_set" "txt" {
   name         = "${local.name}.${var.dns-domain}"
-  managed_zone = "${var.dns-zone}"
+  managed_zone = var.dns-zone
   type         = "TXT"
   ttl          = 300
   rrdatas      = [var.build_id]
@@ -231,7 +231,7 @@ resource "google_dns_record_set" "txt" {
 # Create DNS alias with dns-name variable from Pub/Sub
 resource "google_dns_record_set" "cname" {
   name         = "${var.dns-name}.${var.dns-domain}"
-  managed_zone = "${var.dns-zone}"
+  managed_zone = var.dns-zone
   type         = "CNAME"
   ttl          = 300
   rrdatas      = [google_dns_record_set.a.name]
@@ -247,14 +247,14 @@ resource "google_dns_record_set" "cname" {
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_scheduler_job
 resource "google_cloud_scheduler_job" "destroy" {
   name        = "job-destroy-${local.name}"
-  region      = "${var.scheduler-region}"
+  region      = var.scheduler-region
   description = "Scheduler to destroy build ${var.build_id} (Terraform managed)"
   # Cron tab:     minute                  hour                  day                  month                 day
-  schedule    = "${local.destroy_minute} ${local.destroy_hour} ${local.destroy_day} ${local.destroy_month} *"
+  schedule = "${local.destroy_minute} ${local.destroy_hour} ${local.destroy_day} ${local.destroy_month} *"
 
   pubsub_target {
     # topic.id is the topic's full resource name.
-    topic_name = "${var.pub-sub-destroy-topic}"
+    topic_name = var.pub-sub-destroy-topic
     data       = base64encode("{\"destroy\":\"${var.build_id}\"}")
   }
 
@@ -303,7 +303,7 @@ resource "local_file" "php" {
  *****************************************************************************/
 
 resource "local_file" "nat_ip" {
-  content  = "${google_compute_instance.vm.network_interface[0].access_config[0].nat_ip}"
+  content  = google_compute_instance.vm.network_interface[0].access_config[0].nat_ip
   filename = "/workspace/nat_ip.txt"
 }
 
