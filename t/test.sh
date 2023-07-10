@@ -6,6 +6,7 @@ echo
 shellcheck --version || exit 9
 echo
 terraform --version  || exit 9
+tflint --version || exit 9
 echo
 yamllint --version   || exit 9
 echo
@@ -41,3 +42,4 @@ cd ../gcp/                           || exit 9
 terraform init && terraform validate || exit 9
 cd ../t/                             || exit 9
 terraform fmt -recursive -check -diff -no-color || exit 9
+tflint --recursive --no-color || exit 9
