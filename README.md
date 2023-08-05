@@ -11,7 +11,7 @@ A virtual machine is then provisioned and installed for you in the Google Cloud.
 In the background, [Google Cloud Build](https://cloud.google.com/build) uses [Terraform](https://www.terraform.io/) and [Ansible](https://www.ansible.com/) to build your own VM.
 You will get your own user login data printed on a receipt and you can log in via SSH after a few minutes.
 
-<img src="./img/terraform_ansible_logo.jpg?v1" alt="" width="400">
+![Image: Terraform and Ansible](./img/terraform_ansible_logo.jpg)
 
 This project also shows you how well the Google Cloud can scale.
 Tested with over 100 VMs. [700 VMs](./QUOTA.md) is the default limit.
@@ -21,7 +21,7 @@ I saw the Shells On Demand Appliance "SODA" from National Upcycled Computing Col
 
 TL;DR: It's a vending machine. You pay, press a button and get your own virtual machine (VM).
 
-![Image: Shells on Demand Appliance at DEF CON 30](./img/soda-las_vegas.jpg?v1)
+![Image: Shells on Demand Appliance at DEF CON 30](./img/soda-las_vegas.jpg)
 
 *Image Source: [@strangepartscom](https://twitter.com/strangepartscom/status/1558566808205987840/), [@Zhoratrope](https://twitter.com/Zhoratrope/status/1558160122957799424)*
 
@@ -112,7 +112,7 @@ Everything goes very fast.
 While the user is already holding his paper with login information,
 further steps are executed in the cloud.
 
-[![Drawing: SODA Google Compute Engine version](./img/soda-gcp.png?v1)](./img/soda-gcp.png)
+[![Drawing: SODA Google Compute Engine version](./img/soda-gcp.png)](./img/soda-gcp.png)
 
 **Raspberry Pi:**
 
@@ -159,12 +159,12 @@ The following configuration is used by default:
 
 Estimated cost per `g1-small` VM, without guarantee:
 
-|  | $ 1h | $ 3h |
-|--|--|--|
-| CPU and memory | `0.0285` | `0.09` |
-| Disk (25GB)¹ | `0.0034` | `0.01` |
+|                  | $ 1h     | $ 3h   |
+|------------------|----------|--------|
+| CPU and memory   | `0.0285` | `0.09` |
+| Disk (25GB)¹     | `0.0034` | `0.01` |
 | Static public IP | `0.0034` | `0.01` |
-| **Total** | `0.0353` | `0.11` |
+| **Total**        | `0.0353` | `0.11` |
 
 ¹ Disk: 0.1 USD per 1 GB and month,
 25 GB per month = 2.50 USD,
@@ -194,7 +194,7 @@ cd google-cloud-shells-on-demand
 ```
 ### 2. Google Cloud Platform
 
-Please follow the instructions in the folder [gcp](./gcp/).
+Please follow the instructions in the folder [gcp](./gcp/README.md).
 
 ```bash
 cd gcp
@@ -202,7 +202,7 @@ cd gcp
 
 ### 3. Raspberry Pi
 
-Please follow the instructions in the folder [pi](./pi/).
+Please follow the instructions in the folder [pi](./pi/README.md).
 
 ```bash
 cd pi
@@ -216,7 +216,7 @@ In addition to creating the infrastructure, there are a few other functions.
 
 After a defined time (default 3 hours), your VM and its entire infrastructure will be deleted.
 
-[<img src="./img/destroy.png?v1" alt="" width="556">](./img/destroy.png)
+![Image: Cloud Scheduler](./img/destroy.png)
 
 This is triggered by a Cloud Scheduler set up during the creation of the VM.
 A Cloud Build job then takes care of the destruction of the VM and its infrastructure.
@@ -238,7 +238,7 @@ Then you can do anything, even shut down the VM:
 sudo poweroff
 ```
 
-[<img src="./img/on-again.png?v1" alt="" width="389">](./img/on-again.png)
+![Image: Cloud Build](./img/on-again.png)
 
 If you do this, a event will be saved in the Google Cloud audit log and a new Cloud Build job will be triggered.
 
@@ -248,20 +248,23 @@ This Cloud Build job then starts your VM again. Feel free to test it 😊.
 
 Get notified via [Discord](https://discord.com/) when a Cloud Build job is failed (`ERROR`) or timed out (`TIMEOUT`).
 
-[<img src="./img/cloudbuild-discord.png?v1" alt="" width="597">](./img/cloudbuild-discord.png)
+![Image: Discord](./img/cloudbuild-discord.png)
 
 1. Create an Discord webhook URL for your Discord channel: <https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks>
 	
 	The webhook URL should look similar to the following:
+
 	```text
 	https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]
 	```
+
 1. Add the Discord webhook URL to `terraform.tfvars` in `gcp` directory:
 	
 	```text
 	# Discord webhook URL
 	discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"
 	```
+
 1. Deploy Cloud Function
 	
 	```bash
@@ -275,11 +278,12 @@ You can test the notification with the manual Cloud Build trigger `simulate-erro
 You can use the Artifact Registry as a location for the Docker container image.
 The image then does not have to be downloaded from Docker Hub during the Cloud Build jobs.
 
-[<img src="./img/copy-image.png?v1" alt="" width="469">](./img/copy-image.png)
+![Image: Copy container](./img/copy-image.png)
 
 1. Copy the image by running the manual trigger `copy-image`.
 1. Replace `cyclenerd/google-cloud-gcp-tools-container:latest` with `[LOCATION]-docker.pkg.dev/[PROJECT_ID]/cointainer/google-cloud-gcp-tools-container:latest` in the Cloud Build YAML files (i.e. [`create.yml`](./cloudbuild/create.yml)) in folder the [cloudbuild](./cloudbuild/).
 1. Push changes to Cloud Source repository:
+
 	```bash
 	git push cloudsource
 	```

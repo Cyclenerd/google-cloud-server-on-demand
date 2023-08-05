@@ -105,7 +105,7 @@ If you want to log out again, follow these steps: [Revoke cookies](https://www.g
 
 ## Done
 
-Your Google Cloud Platform is now configured. Continue with the [Raspberry Pi](../pi/).
+Your Google Cloud Platform is now configured. Continue with the [Raspberry Pi](../pi/README.md).
 
 ```bash
 cd ../pi/

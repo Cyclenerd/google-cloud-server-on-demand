@@ -114,6 +114,7 @@ ansible-playbook "pi-soda.yml" \
 > 💁 Do not forget the comma (`,`) after the IP.
 
 This is what the command looks like with my local IP from the Raspberry Pi:
+
 ```bash
 ansible-playbook "pi-soda.yml" -u "pi" -i 192.168.100.155,
 ```
