@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get install ansible-lint flake8
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       # https://github.com/marketplace/actions/setup-tflint
       - name: Install tflint
         uses: terraform-linters/setup-tflint@v3
