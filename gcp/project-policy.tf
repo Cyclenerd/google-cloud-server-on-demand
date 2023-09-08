@@ -34,6 +34,20 @@ resource "google_project_organization_policy" "organization-policies" {
   }
 }
 
+# Disable Policy for Require OS Login
+resource "google_project_organization_policy" "compute-requireOsLogin" {
+  project    = google_project.my.project_id
+  constraint = "compute.requireOsLogin"
+  boolean_policy {
+    enforced = false
+  }
+}
+resource "google_compute_project_metadata" "enable-oslogin" {
+  metadata = {
+    enable-oslogin = "FALSE"
+  }
+}
+
 # Enable service account creation
 resource "google_project_organization_policy" "iam-disableServiceAccountCreation" {
   project = google_project.my.project_id
