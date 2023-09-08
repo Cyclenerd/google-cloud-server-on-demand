@@ -223,16 +223,16 @@ def hashPassword(password):
 # Generate hostname
 def genHostname():
     hostname = ""
-    for i in range(10):
+    for i in range(8):
         hostname += random.choice(characterList)
     return hostname
 
 
 # Get Google Cloud OS image
 def getImage(int_nr):
-    image = "debian-cloud/debian-11"
+    image = "debian-cloud/debian-12"
     if int_nr == 1:
-        image = "debian-cloud/debian-11"
+        image = "debian-cloud/debian-12"
     elif int_nr == 2:
         image = "ubuntu-os-cloud/ubuntu-2204-lts"
     elif int_nr == 3:
@@ -251,12 +251,6 @@ def outputData(data):
 def printNewline():
     p.set(width=1, height=1, align='left')
     p.text("\n")
-
-
-def printLine():
-    p.set(width=1, height=1, align='left')
-    p.text("------------------------------")
-    printNewline()
 
 
 def printTitle(title):
@@ -293,9 +287,9 @@ def printData(data):
         image_name = "Rocky Linux"
     elif (image.__contains__('opensuse')):
         image_name = "openSUSE"
-    # Tux
-    p.image("image.png")
     # Logo
+    p.image("image.png")
+    printNewline()
     printNewline()
     p.set(width=4, height=4, align='center')
     p.text("FREE VM\n")
@@ -335,12 +329,11 @@ def printData(data):
     printText("mation (Terraform and Ansible)")
     printText("has created everything.")
     printNewline()
-    printLine()
     # Slalom website
     printTitle("About Slalom")
     printText("Learn more about Slalom and")
-    printText("our partnership with Google")
-    p.qr(f"https://www.slalom.com/de-de?utm_source=DigitalX", size=8)
+    printText("our partnership with Google.")
+    p.qr(f"https://www.slalom.com/platforms/google-cloud", size=8)
     printNewline()
     printNewline()
     printTitle("1 Tree per VM")
