@@ -24,7 +24,7 @@ import json
 import random
 
 # Set Google Cloud OS image
-image = "debian-cloud/debian-11"
+image = "debian-cloud/debian-12"
 
 # Set Linux username
 username = "tux"

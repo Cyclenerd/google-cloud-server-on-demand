@@ -34,7 +34,7 @@
         append: true
 
     #############################################
-    # Debian 11 / Ubuntu 22.04 LTS
+    # Debian 12 / Ubuntu 22.04 LTS
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
     #############################################
     - name: Install Lighttpd on Debian

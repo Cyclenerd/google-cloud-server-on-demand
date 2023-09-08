@@ -108,7 +108,7 @@ variable "image" {
   type        = string
   nullable    = false
   description = "Google Compute Engine operating system image"
-  default     = "debian-cloud/debian-11"
+  default     = "debian-cloud/debian-12"
 }
 
 variable "ansible_ssh_pub_key" {
