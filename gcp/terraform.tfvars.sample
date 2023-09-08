@@ -1,0 +1,17 @@
+# Google Cloud project ID
+# Changing this forces a new project to be created
+project = "[PROJECT_ID]"
+
+# The alphanumeric ID of the billing account this project belongs to
+billing_account = "[BILLING_ACCOUNT_ID]"
+
+# The numeric ID of the folder this project should be created under
+folder = "[FOLDER_ID]"
+
+# Google Cloud DNS domain name suffix for managed zone
+# This domain is used for the VMs
+# Name field must end with trailing dot, for example myzone.example.com. (note the trailing dot)
+dns-domain = "subdomain.domain.tld."
+
+# [OPTIONAL] Discord webhook URL
+#discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"

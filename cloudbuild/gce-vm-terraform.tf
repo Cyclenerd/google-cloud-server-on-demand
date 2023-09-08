@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Nils Knieling
+ * Copyright 2022-2023 Nils Knieling
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -273,10 +273,10 @@ resource "local_file" "php" {
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello from the Google Cloud</title>
+    <title>Hello from Slalom and Google</title>
     <style>
     body {
-      background-color: #000000;
+      background-color: #0C62FB;
       color: #FFFFFF;
       font-family: "Lucida Console", "Courier New", monospace;
     }

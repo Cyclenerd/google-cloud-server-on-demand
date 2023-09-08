@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright 2022 Nils Knieling
+# Copyright 2022-2023 Nils Knieling
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -223,7 +223,7 @@ def hashPassword(password):
 # Generate hostname
 def genHostname():
     hostname = ""
-    for i in range(8):
+    for i in range(10):
         hostname += random.choice(characterList)
     return hostname
 
@@ -251,6 +251,12 @@ def outputData(data):
 def printNewline():
     p.set(width=1, height=1, align='left')
     p.text("\n")
+
+
+def printLine():
+    p.set(width=1, height=1, align='left')
+    p.text("------------------------------")
+    printNewline()
 
 
 def printTitle(title):
@@ -292,10 +298,10 @@ def printData(data):
     # Logo
     printNewline()
     p.set(width=4, height=4, align='center')
-    p.text("SODA\n")
+    p.text("FREE VM\n")
     p.set(width=1, height=1, align='center')
-    p.text("Shells  on  Demand  Appliance\n")
-    p.text("- Google Compute Engine -\n")
+    p.text("Your fully automated VM in\n")
+    p.text("Google Cloud Platform\n")
     printNewline()
     printTitle("SSH (Shell)")
     printText("Connect to this VM with your")
@@ -329,9 +335,16 @@ def printData(data):
     printText("mation (Terraform and Ansible)")
     printText("has created everything.")
     printNewline()
-    printTitle("Avoid waste")
-    printText("This piece of paper also works")
-    printText("great as a bookmark :-)")
+    printLine()
+    # Slalom website
+    printTitle("About Slalom")
+    printText("Learn more about Slalom and")
+    printText("our partnership with Google")
+    p.qr(f"https://www.slalom.com/de-de?utm_source=DigitalX", size=8)
+    printNewline()
+    printNewline()
+    printTitle("1 Tree per VM")
+    printText("We plant one tree for each VM.")
     # Cut
     for i in range(4):
         printNewline()

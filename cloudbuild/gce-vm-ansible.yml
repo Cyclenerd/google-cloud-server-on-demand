@@ -74,6 +74,14 @@
         owner: root
         group: root
         mode: '0755'
+    - name: Copy favicon.ico to Debian
+      when: ansible_distribution in ["Debian", "Ubuntu"]
+      ansible.builtin.copy:
+        src: /workspace/favicon.ico
+        dest: /var/www/html/favicon.ico
+        owner: root
+        group: root
+        mode: '0644'
 
     #############################################
     # Rock Linux 9
@@ -109,6 +117,14 @@
         owner: root
         group: root
         mode: '0755'
+    - name: Copy favicon.ico to Rocky Linux
+      when: ansible_distribution == "Rocky"
+      ansible.builtin.copy:
+        src: /workspace/favicon.ico
+        dest: /usr/share/nginx/html/favicon.ico
+        owner: root
+        group: root
+        mode: '0644'
 
     #############################################
     # openSUSE Leap (15)
@@ -149,5 +165,13 @@
         owner: root
         group: root
         mode: '0755'
+    - name: Copy favicon.ico to openSUSE
+      when: ansible_distribution == "openSUSE Leap"
+      ansible.builtin.copy:
+        src: /workspace/favicon.ico
+        dest: /srv/www/htdocs/favicon.ico
+        owner: root
+        group: root
+        mode: '0644'
 
 # EOF
