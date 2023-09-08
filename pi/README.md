@@ -145,6 +145,30 @@ Static LAN IPv4: `100.100.100.100`
 
 > 🤓 This is a IP from the for [carrier-grade NAT ](https://en.wikipedia.org/wiki/Carrier-grade_NAT) allocated address block.
 
+### Wi-Fi / WLAN
+
+Edit configuration:
+
+```bash
+nano -w "/etc/wpa_supplicant/wpa_supplicant.conf"
+```
+
+Add Wi-Fi:
+
+```bash
+wpa_passphrase "[SSID]" "[Password]" >> "/etc/wpa_supplicant/wpa_supplicant.conf"
+```
+
+Status monitor for wireless networks:
+
+```bash
+wavemon
+```
+
+More help: <https://wiki.archlinux.org/title/Wpa_supplicant>
+
+### Access Point
+
 Optionally, the Raspberry Pi can also act as an access Wi-Fi access point.
 You need a second Wi-Fi interface (`wlan1`) for this and then you can connect to the Wi-Fi (name: `Shells on Demand Appliance`) and then access the Raspbery Pi via SSH.
 

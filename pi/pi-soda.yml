@@ -28,6 +28,9 @@
           - python3-pip
           - openssl
           - hostapd
+          - htop
+          - mtr
+          - wavemon
 
     - name: Install Python Client for Google Cloud Pub/Sub
       ansible.builtin.pip:
@@ -177,6 +180,8 @@
           alias reboot='sudo reboot'
           alias poweroff='sudo poweroff'
           alias shutdown='sudo shutdown -h now'
+          alias raspi-config='sudo raspi-config'
+          alias wavemon='sudo wavemon'
           alias temp='/usr/bin/vcgencmd measure_temp'
           alias screen='echo Type soda to connect to screen.'
           alias soda='/usr/bin/screen -dr'
