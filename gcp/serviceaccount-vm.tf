@@ -8,6 +8,7 @@ resource "google_service_account" "vm" {
   account_id   = "compute"
   display_name = "SA for Compute Engine instances"
   description  = "Service account for Google Compute Engine instances (Terraform managed)"
+  depends_on   = [google_project_organization_policy.iam-disableServiceAccountCreation]
 }
 
 # Sleep and wait for service account

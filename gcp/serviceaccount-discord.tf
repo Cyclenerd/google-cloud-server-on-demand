@@ -7,6 +7,7 @@ resource "google_service_account" "discord" {
   account_id   = "discord"
   display_name = "SA for GCF to send notifications to Discord"
   description  = "Service account for Cloud Function to send notifications to Discord (Terraform managed)"
+  depends_on   = [google_project_organization_policy.iam-disableServiceAccountCreation]
 }
 
 # Sleep and wait for service account
