@@ -13,5 +13,8 @@ folder = "[FOLDER_ID]"
 # Name field must end with trailing dot, for example myzone.example.com. (note the trailing dot)
 dns-domain = "subdomain.domain.tld."
 
+# Google Cloud Source repository revision for Cloud Build tools and scripts
+cloud-build-source-repo-revision = "refs/heads/slalom"
+
 # [OPTIONAL] Discord webhook URL
 #discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"
