@@ -16,5 +16,8 @@ dns-domain = "subdomain.domain.tld."
 # Google Cloud Source repository revision for Cloud Build tools and scripts
 cloud-build-source-repo-revision = "refs/heads/slalom"
 
+# Duration (minutes) until the VM is destroyed
+expires = "180"
+
 # [OPTIONAL] Discord webhook URL
 #discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"
