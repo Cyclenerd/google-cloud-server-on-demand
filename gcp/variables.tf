@@ -68,6 +68,13 @@ variable "expires" {
   default     = "180"
 }
 
+variable "max-vms" {
+  type        = number
+  nullable    = false
+  description = "Maximum number of VMs to create"
+  default     = 700
+}
+
 variable "zone" {
   type        = string
   nullable    = false

@@ -48,6 +48,17 @@ else
 	exit 9
 fi
 
+# Check database
+MY_DB="database.db"
+if [ -f "$MY_DB" ]; then
+	echo '[X] Database exists.'
+else
+	# Create database
+	echo '[INFO] Creating database.'
+	sqlite3 "$MY_DB" "CREATE TABLE soda (id INTEGER PRIMARY KEY, button INTEGER, time INTEGER);"
+	echo '[X] Database created.'
+fi
+
 echo
 python3 "buttons.py"
 

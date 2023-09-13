@@ -29,6 +29,7 @@ import os
 import random
 import sys
 import re
+import sqlite3
 
 # GOOGLE_APPLICATION_CREDENTIALS
 google_application_credentials = ""
@@ -94,8 +95,30 @@ if expires:
 else:
     sys.exit("[ERROR] Please check MY_EXPIRES.")
 
+# MY_MAX_VMS
+max_vms = ""
+try:
+    max_vms = os.environ['MY_MAX_VMS']
+except KeyError:
+    sys.exit("[ERROR] Environment variable MY_MAX_VMS not set!")
+
+if max_vms:
+    print(f"Maximum number of VMs to create: {max_vms}")
+    # Convert to int
+    max_vms = int(max_vms)
+else:
+    sys.exit("[ERROR] Please check MY_MAX_VMS.")
+
 # Printer
 p = File("/dev/usb/lp0")
+
+# Database
+db_file = "database.db"
+
+# Create database if not exists
+connection = sqlite3.connect(db_file)
+# Create a cursor to execute queries.
+sql = connection.cursor()
 
 # LEDs
 blue = LED(26)
@@ -331,7 +354,7 @@ def printData(data):
     # Slalom website
     printTitle("About Slalom")
     printText("Learn more about Slalom & Google")
-    p.qr(f"https://www.slalom.com/platforms/google-cloud", size=8)
+    p.qr("https://www.slalom.com/platforms/google-cloud", size=8)
     printNewline()
     printNewline()
     printTitle("One Tree Planted")
@@ -340,7 +363,6 @@ def printData(data):
     printText("DIGITAL X we will plant a tree")
     printText("through the organization")
     printText("One Tree Planted.")
-
     # Cut
     for i in range(4):
         printNewline()
@@ -355,6 +377,26 @@ def button(int_nr):
     str_shutdown = shutdown.strftime("%Y-%m-%d %H:%M:%S")
     print(f"[Button {str_nr}] {str_now}")
     ledBlink(int_nr)
+    # Count rows in table
+    int_timeframe = int((now - timedelta(minutes=expires)).timestamp())
+    sql.execute("SELECT COUNT(button) FROM soda WHERE time > ?", (int_timeframe,))
+    count = int(sql.fetchone()[0])
+    print(f"[SQL] {count} VMs in timeframe.")
+    if count > max_vms:
+        print("[ERROR] Too many VMs in timeframe.")
+        printText("OUT OF QUOTA!")
+        # Get oldest VM in timeframe
+        sql.execute("SELECT MIN(time) FROM soda WHERE time > ?", (int_timeframe,))
+        oldest = dt.fromtimestamp(sql.fetchone()[0])
+        # Calculate next try
+        next_try = oldest + timedelta(minutes=expires+5)
+        next = next_try.strftime("%Y-%m-%d %H:%M:%S")
+        printText(f"Try again at {next}")
+        # Cut
+        for i in range(4):
+            printNewline()
+        ledParty()
+        return
     # Generate data
     username = genUsername()
     password = genPassword()
@@ -372,10 +414,13 @@ def button(int_nr):
     # Publish and print
     if publish(data):
         printData(data)
-    # Open CSV file for statistics
-    csv = open("statistic.csv", "a")
-    csv.write(str_nr + "," + str_now + "\n")
-    csv.close()
+    # Insert the data into the table.
+    sql.execute(
+        "INSERT INTO soda (button, time) VALUES (?, ?)",
+        (int_nr, int(now.timestamp()))
+    )
+    # Commit the changes to the database.
+    connection.commit()
     # Party
     ledParty()
 
@@ -386,6 +431,7 @@ ledsOn()
 # Wait for input...
 print("\nWait for button input... ([Ctrl]+[C] to cancel)\n")
 while True:
+    # Check if button is pressed
     if b1.is_pressed:
         button(1)
     elif b2.is_pressed:

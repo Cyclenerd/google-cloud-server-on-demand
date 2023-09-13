@@ -19,5 +19,8 @@ cloud-build-source-repo-revision = "refs/heads/slalom"
 # Duration (minutes) until the VM is destroyed
 expires = "180"
 
+# Maximum number of VMs to create
+max-vms = "700"
+
 # [OPTIONAL] Discord webhook URL
 #discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"

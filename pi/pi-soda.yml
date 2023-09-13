@@ -31,6 +31,7 @@
           - htop
           - mtr
           - wavemon
+          - sqlite3
 
     - name: Install Python Client for Google Cloud Pub/Sub
       ansible.builtin.pip:
