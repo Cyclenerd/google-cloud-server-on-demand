@@ -222,6 +222,7 @@
         - pi-private-key.json
         - temp.sh
         - temp.py
+        - message.py
 
     # Cron
     - name: SODA - Add start.sh to crontab
