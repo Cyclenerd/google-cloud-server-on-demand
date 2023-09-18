@@ -147,6 +147,7 @@ try:
     json_object = json.dumps(data)
     message = str(json_object).encode("utf-8")
     future = publisher.publish(topic_path, message)
-    print(f"Published message ID: {future.result()}")
+    publish = future.result(timeout=60)
+    print(f"Published message ID: {publish}")
 except Exception:
     sys.exit("[ERROR] Cannot publish message!")
