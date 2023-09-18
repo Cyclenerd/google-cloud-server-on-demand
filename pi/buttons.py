@@ -348,7 +348,7 @@ def printData(data):
     printText("freshly installed for you. It is")
     printText("not a hot standby machine or a")
     printText("preconfigured image. Give it")
-    printText("about 3min. until automation has")
+    printText("about 4min. until automation has")
     printText("created everything.")
     printNewline()
     # Slalom website
