@@ -354,7 +354,7 @@ def printData(data):
     # Slalom website
     printTitle("About Slalom")
     printText("Learn more about Slalom & Google")
-    p.qr("https://www.slalom.com/platforms/google-cloud", size=8)
+    p.qr("https://bit.ly/slalom-google", size=8)
     printNewline()
     printNewline()
     printTitle("One Tree Planted")
