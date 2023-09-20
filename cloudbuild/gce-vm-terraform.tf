@@ -101,7 +101,7 @@ variable "machine_type" {
   type        = string
   nullable    = false
   description = "Google Compute Engine machine type"
-  default     = "g1-small"
+  default     = "e2-micro"
 }
 
 variable "image" {
