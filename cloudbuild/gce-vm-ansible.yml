@@ -79,17 +79,12 @@
     # Rock Linux 9
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dnf_module.html
     #############################################
-    - name: Install GNU nano on Rocky Linux
-      when: ansible_distribution == "Rocky"
-      ansible.builtin.dnf:
-        name: nano
-        state: present
-        update_cache: true
     - name: Install Nginx on Rocky Linux
       when: ansible_distribution == "Rocky"
       ansible.builtin.dnf:
         name: nginx
         state: present
+        update_cache: true
     - name: Install PHP on Rocky Linux
       when: ansible_distribution == "Rocky"
       ansible.builtin.dnf:
@@ -114,17 +109,12 @@
     # openSUSE Leap (15)
     # https://docs.ansible.com/ansible/latest/collections/community/general/zypper_module.html
     #############################################
-    - name: Install GNU nano on openSUSE
-      when: ansible_distribution == "openSUSE Leap"
-      community.general.zypper:
-        name: nano
-        state: present
-        update_cache: true
     - name: Install Apache on openSUSE
       when: ansible_distribution == "openSUSE Leap"
       community.general.zypper:
         name: apache2
         state: present
+        update_cache: true
     - name: Install PHP on openSUSE
       when: ansible_distribution == "openSUSE Leap"
       community.general.zypper:
