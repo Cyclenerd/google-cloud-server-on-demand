@@ -146,25 +146,25 @@ further steps are executed in the cloud.
 
 The following configuration is used by default:
 
-* Machine type: [`g1-small`](https://gcloud-compute.com/g1-small.html)
-	* vCPU: 1 shared Intel (x86/64)
-	* Memory: 1.7 GB
+* Machine type: [`e2-micro`](https://gcloud-compute.com/e2-micro.html)
+	* vCPU: 2 shared Intel (x86/64)
+	* Memory: 1 GB
 * Disk:
 	* Type: [Balanced persistent disk](https://cloud.google.com/compute/docs/disks#disk-types) (SSD)
 	* Size: 25 GB
 * External IP address: Premium
-* Region: [`europe-west1`](https://gcloud-compute.com/europe-west1/g1-small.html) (Belgium) 
+* Region: [`europe-west1`](https://gcloud-compute.com/europe-west1/e2-micro.html) (Belgium) 
 
 **Costs:**
 
-Estimated cost per `g1-small` VM, without guarantee:
+Estimated cost per `e2-micro` VM, without guarantee:
 
 |                  | $ 1h     | $ 3h   |
 |------------------|----------|--------|
-| CPU and memory   | `0.0285` | `0.09` |
+| CPU and memory   | `0.0092` | `0.03` |
 | Disk (25GB)¹     | `0.0034` | `0.01` |
 | Static public IP | `0.0034` | `0.01` |
-| **Total**        | `0.0353` | `0.11` |
+| **Total**        | `0.0160` | `0.05` |
 
 ¹ Disk: 0.1 USD per 1 GB and month,
 25 GB per month = 2.50 USD,
@@ -180,7 +180,7 @@ There are other small costs for:
 * Cloud DNS managed zone
 * Network Internet egress traffic
 
-Source: [Google Cloud Pricing Calculator](https://cloud.google.com/products/calculator/#id=4ca15321-259b-46b4-9cf5-1f48b8536ec7)
+Source: [Google Cloud Pricing Calculator](https://cloud.google.com/products/calculator/#id=7b564b38-e2c4-43bc-8e50-9a21b71d0c48)
 
 ## 🚀 Setup
 
