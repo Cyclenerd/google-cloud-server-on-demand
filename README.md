@@ -19,11 +19,12 @@ This project also shows you how well the Google Cloud can scale.
 Tested with over 100 VMs. [700 VMs](./QUOTA.md) is the default limit.
 
 ## 🤔 Why
-I saw the Server on Demand Appliance "SODA" from National Upcycled Computing Collective (NUCC) at the DEF CON 30 conference in Las Vegas. Unfortunately not in person but in this [YouTube video](https://www.youtube.com/watch?v=e69zcwISo3Y).
+
+I saw the Shells on Demand Appliance "SODA" from National Upcycled Computing Collective (NUCC) at the DEF CON 30 conference in Las Vegas. Unfortunately not in person but in this [YouTube video](https://www.youtube.com/watch?v=e69zcwISo3Y).
 
 TL;DR: It's a vending machine. You pay, press a button and get your own virtual machine (VM).
 
-![Image: Server on Demand Appliance at DEF CON 30](./img/soda-las_vegas.jpg)
+![Image: Shells on Demand Appliance at DEF CON 30](./img/soda-las_vegas.jpg)
 
 *Image Source: [@strangepartscom](https://twitter.com/strangepartscom/status/1558566808205987840/), [@Zhoratrope](https://twitter.com/Zhoratrope/status/1558160122957799424)*
 
