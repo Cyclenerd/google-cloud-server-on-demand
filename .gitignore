@@ -40,7 +40,10 @@ terraform.rc
 
 *.zip
 
+*.db
+
 sourcerepo-url.sh
 variables.sh
 dns-name-servers.txt
 pi-private-key.json
+copy.sh

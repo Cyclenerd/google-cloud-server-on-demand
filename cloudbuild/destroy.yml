@@ -1,6 +1,6 @@
 # Destroy VM
 steps:
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: europe-west1-docker.pkg.dev/tor-p-a-nils-snd-soda/cointainer/google-cloud-gcp-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"
@@ -13,7 +13,7 @@ steps:
         echo 'Project Nr             : $PROJECT_NUMBER'
         echo 'Region                 : $LOCATION'
 
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: europe-west1-docker.pkg.dev/tor-p-a-nils-snd-soda/cointainer/google-cloud-gcp-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"

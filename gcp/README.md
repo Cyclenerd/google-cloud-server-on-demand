@@ -37,6 +37,12 @@ Please verify the ownership of the domain (or a parent) at <http://www.google.co
 	gcloud auth application-default login
 	```
 
+1. Set quota project
+
+	```bash
+	gcloud auth application-default set-quota-project [EXISTING-GOOGLE-PROJECT]
+	``````
+
 1. Initialize
 	
 	```bash

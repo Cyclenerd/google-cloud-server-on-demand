@@ -98,7 +98,7 @@ Connect the thermal receipt printer via USB to the Raspberry Pi.
 
 ## Software
 
-Copy the required scripts and programs to turn the Raspberry Pi into the "Shells on Demand Appliance".
+Copy the required scripts and programs to turn the Raspberry Pi into the "Server on Demand Appliance".
 
 > **Warning**
 > Perform these steps only after you have set up Google Cloud Platform as described in the [gcp](../gcp/) folder.
@@ -145,8 +145,32 @@ Static LAN IPv4: `100.100.100.100`
 
 > 🤓 This is a IP from the for [carrier-grade NAT ](https://en.wikipedia.org/wiki/Carrier-grade_NAT) allocated address block.
 
+### Wi-Fi / WLAN
+
+Edit configuration:
+
+```bash
+nano -w "/etc/wpa_supplicant/wpa_supplicant.conf"
+```
+
+Add Wi-Fi:
+
+```bash
+wpa_passphrase "[SSID]" "[Password]" >> "/etc/wpa_supplicant/wpa_supplicant.conf"
+```
+
+Status monitor for wireless networks:
+
+```bash
+wavemon
+```
+
+More help: <https://wiki.archlinux.org/title/Wpa_supplicant>
+
+### Access Point
+
 Optionally, the Raspberry Pi can also act as an access Wi-Fi access point.
-You need a second Wi-Fi interface (`wlan1`) for this and then you can connect to the Wi-Fi (name: `Shells on Demand Appliance`) and then access the Raspbery Pi via SSH.
+You need a second Wi-Fi interface (`wlan1`) for this and then you can connect to the Wi-Fi (name: `Server on Demand Appliance`) and then access the Raspbery Pi via SSH.
 
 > I am using the [HOMESPOT Wireless USB Adapter](https://www.amazon.de/dp/B01ERHE18S/) (with Realtek `RTL8188CUS` chip) from Amazon.de as second Wi-Fi adapter.
 
@@ -167,21 +191,9 @@ More help: <https://www.raspberrypi.com/documentation/computers/configuration.ht
 
 ## Image
 
-The Linux mascot [Tux](https://en.wikipedia.org/wiki/Tux_(mascot)) is printed on the receipt.
-The original image by [gg3po](https://commons.wikimedia.org/wiki/File:TuxFlat.svg) was converted to black and white:
+The [Slalom Logo](https://commons.wikimedia.org/wiki/File:Slalom-wordmark.png) is printed on the receipt.
+The original image was converted to black and white:
 
-![Image: Tux](./image.png)
-
-Image source: <https://commons.wikimedia.org/wiki/File:TuxFlat.svg>
-
-Image permission:
-
-> This work is [free software](https://en.wikipedia.org/wiki/en:Free_software);
-> you can redistribute it and/or modify it under the terms of the [GNU General Public License](https://en.wikipedia.org/wiki/en:GNU_General_Public_License)
-> as published by the [Free Software Foundation](https://en.wikipedia.org/wiki/en:Free_Software_Foundation);
-> either version 2 of the License, or any later version.
-> This work is distributed in the hope that it will be useful,
-> but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose.
-> See [version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html) and [version 3 of the GNU General Public License](https://www.gnu.org/copyleft/gpl-3.0.html) for more details.
+![Image: Slalom](./image.png)
 
 You can replace the image by changing the `image.png` file and running the Ansible playbook again.

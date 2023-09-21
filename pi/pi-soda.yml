@@ -28,6 +28,10 @@
           - python3-pip
           - openssl
           - hostapd
+          - htop
+          - mtr
+          - wavemon
+          - sqlite3
 
     - name: Install Python Client for Google Cloud Pub/Sub
       ansible.builtin.pip:
@@ -177,6 +181,8 @@
           alias reboot='sudo reboot'
           alias poweroff='sudo poweroff'
           alias shutdown='sudo shutdown -h now'
+          alias raspi-config='sudo raspi-config'
+          alias wavemon='sudo wavemon'
           alias temp='/usr/bin/vcgencmd measure_temp'
           alias screen='echo Type soda to connect to screen.'
           alias soda='/usr/bin/screen -dr'
@@ -214,13 +220,22 @@
         - start.sh
         - variables.sh
         - pi-private-key.json
+        - temp.sh
+        - temp.py
+        - message.py
 
     # Cron
-    - name: SODA - Add to crontab
+    - name: SODA - Add start.sh to crontab
       ansible.builtin.cron:
         name: "Start SODA in screen after reboot"
         special_time: reboot
         job: "sleep 30 && /usr/bin/screen -d -m"
+        user: "{{ username }}"
+    - name: SODA - Add temp.sh to crontab
+      ansible.builtin.cron:
+        name: "Publish CPU temperature"
+        minute: "*/5"
+        job: "bash /home/{{ username }}/soda/temp.sh"
         user: "{{ username }}"
 
 # EOF

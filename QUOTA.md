@@ -9,8 +9,8 @@ The following quotas can affect scaling.
 | Identity and Access Management (IAM) API | Service Account Count    |            | 100   | ✔️ We use one service account for all VMs.                      |
 | Cloud Build API                          | Concurrent builds        |            | 30    | ✔️ All jobs are queued. 30 in parallel, then jobs have to wait. |
 | Compute Engine API                       | Static IP addresses      | Region     | 700   | ⚠️ Seems to be the limiting factor.                             |
-| Compute Engine API                       | In-use IP addresses      | Region     | 2300  | > 700 * g1-small                                                |
-| Compute Engine API                       | CPUs                     | Region     | 2400  | > 700 * g1-small                                                |
+| Compute Engine API                       | In-use IP addresses      | Region     | 2300  | > 700 * e2-micro                                                |
+| Compute Engine API                       | CPUs                     | Region     | 2400  | > 700 * e2-micro                                                |
 | Compute Engine API                       | Persistent Disk SSD (GB) | Region     | 82 TB | > 700 * 25 GB                                                   |
 | Cloud Scheduler API                      | Jobs                     | Region     | 5000  | > 700 VMs                                                       |
 

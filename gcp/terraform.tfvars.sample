@@ -1,0 +1,26 @@
+# Google Cloud project ID
+# Changing this forces a new project to be created
+project = "[PROJECT_ID]"
+
+# The alphanumeric ID of the billing account this project belongs to
+billing_account = "[BILLING_ACCOUNT_ID]"
+
+# The numeric ID of the folder this project should be created under
+folder = "[FOLDER_ID]"
+
+# Google Cloud DNS domain name suffix for managed zone
+# This domain is used for the VMs
+# Name field must end with trailing dot, for example myzone.example.com. (note the trailing dot)
+dns-domain = "subdomain.domain.tld."
+
+# Google Cloud Source repository revision for Cloud Build tools and scripts
+cloud-build-source-repo-revision = "refs/heads/slalom"
+
+# Duration (minutes) until the VM is destroyed
+expires = "180"
+
+# Maximum number of VMs to create
+max-vms = "700"
+
+# [OPTIONAL] Discord webhook URL
+#discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"
