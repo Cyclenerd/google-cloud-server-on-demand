@@ -390,7 +390,7 @@ def button(int_nr):
         sql.execute("SELECT MIN(time) FROM soda WHERE time > ?", (int_timeframe,))
         oldest = dt.fromtimestamp(sql.fetchone()[0])
         # Calculate next try
-        next_try = oldest + timedelta(minutes=expires+5)
+        next_try = oldest + timedelta(minutes=expires + 5)
         next = next_try.strftime("%Y-%m-%d %H:%M:%S")
         printText(f"Try again at {next}")
         # Cut
