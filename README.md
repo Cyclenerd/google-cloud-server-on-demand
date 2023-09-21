@@ -1,8 +1,10 @@
-# Shells on Demand Appliance (Google Compute Engine)
+# Server on Demand Appliance (Google Compute Engine)
 
 **Get your own Google Compute Engine virtual machine (VM) with the simple push of a button.**
 
-[![Image: Shells on Demand Appliance (Google Compute Engine)](./img/soda-gce-photo.jpg)](./img/README.md)
+![Image: Server on Demand Appliance (Google Compute Engine)](./img/soda-gce-photo.jpg)
+
+![Image: Server on Demand Appliance at DIGITAL X 2023](./img/soda-gce-digitalx-2023.jpg)
 
 This project is intended to show how quickly and easily virtual machines can be configured and set up using Google Cloud and Infrastructure as Code (IaC) tools.
 You have the choice between four Linux based operating systems.
@@ -17,11 +19,11 @@ This project also shows you how well the Google Cloud can scale.
 Tested with over 100 VMs. [700 VMs](./QUOTA.md) is the default limit.
 
 ## 🤔 Why
-I saw the Shells On Demand Appliance "SODA" from National Upcycled Computing Collective (NUCC) at the DEF CON 30 conference in Las Vegas. Unfortunately not in person but in this [YouTube video](https://www.youtube.com/watch?v=e69zcwISo3Y).
+I saw the Server on Demand Appliance "SODA" from National Upcycled Computing Collective (NUCC) at the DEF CON 30 conference in Las Vegas. Unfortunately not in person but in this [YouTube video](https://www.youtube.com/watch?v=e69zcwISo3Y).
 
 TL;DR: It's a vending machine. You pay, press a button and get your own virtual machine (VM).
 
-![Image: Shells on Demand Appliance at DEF CON 30](./img/soda-las_vegas.jpg)
+![Image: Server on Demand Appliance at DEF CON 30](./img/soda-las_vegas.jpg)
 
 *Image Source: [@strangepartscom](https://twitter.com/strangepartscom/status/1558566808205987840/), [@Zhoratrope](https://twitter.com/Zhoratrope/status/1558160122957799424)*
 
@@ -94,7 +96,7 @@ The following technologies are used:
 </details>
 
 
-All components put together correctly result in the Shells on Demand Appliance Google Cloud version.
+All components put together correctly result in the Server on Demand Appliance Google Cloud version.
 
 ## 🪄 Process of creating a VM
 

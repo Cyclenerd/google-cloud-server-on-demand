@@ -98,7 +98,7 @@ Connect the thermal receipt printer via USB to the Raspberry Pi.
 
 ## Software
 
-Copy the required scripts and programs to turn the Raspberry Pi into the "Shells on Demand Appliance".
+Copy the required scripts and programs to turn the Raspberry Pi into the "Server on Demand Appliance".
 
 > **Warning**
 > Perform these steps only after you have set up Google Cloud Platform as described in the [gcp](../gcp/) folder.
@@ -170,7 +170,7 @@ More help: <https://wiki.archlinux.org/title/Wpa_supplicant>
 ### Access Point
 
 Optionally, the Raspberry Pi can also act as an access Wi-Fi access point.
-You need a second Wi-Fi interface (`wlan1`) for this and then you can connect to the Wi-Fi (name: `Shells on Demand Appliance`) and then access the Raspbery Pi via SSH.
+You need a second Wi-Fi interface (`wlan1`) for this and then you can connect to the Wi-Fi (name: `Server on Demand Appliance`) and then access the Raspbery Pi via SSH.
 
 > I am using the [HOMESPOT Wireless USB Adapter](https://www.amazon.de/dp/B01ERHE18S/) (with Realtek `RTL8188CUS` chip) from Amazon.de as second Wi-Fi adapter.
 
