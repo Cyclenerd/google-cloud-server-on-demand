@@ -76,28 +76,28 @@
         mode: '0755'
 
     #############################################
-    # Rock Linux 9
+    # Fedora Linux 38
     # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dnf_module.html
     #############################################
-    - name: Install Nginx on Rocky Linux
-      when: ansible_distribution == "Rocky"
+    - name: Install Nginx on Fedora Linux
+      when: ansible_distribution == "Fedora"
       ansible.builtin.dnf:
         name: nginx
         state: present
         update_cache: true
-    - name: Install PHP on Rocky Linux
-      when: ansible_distribution == "Rocky"
+    - name: Install PHP on Fedora Linux
+      when: ansible_distribution == "Fedora"
       ansible.builtin.dnf:
         name: php-fpm
         state: present
-    - name: Start Nginx daemon on Rocky Linux
-      when: ansible_distribution == "Rocky"
+    - name: Start Nginx daemon on Fedora Linux
+      when: ansible_distribution == "Fedora"
       ansible.builtin.service:
         name: nginx
         state: started
         enabled: true
-    - name: Copy HTML index.php to Rocky Linux
-      when: ansible_distribution == "Rocky"
+    - name: Copy HTML index.php to Fedora Linux
+      when: ansible_distribution == "Fedora"
       ansible.builtin.copy:
         src: /workspace/index.php
         dest: /usr/share/nginx/html/index.php
@@ -106,7 +106,7 @@
         mode: '0755'
 
     #############################################
-    # openSUSE Leap (15)
+    # openSUSE Leap
     # https://docs.ansible.com/ansible/latest/collections/community/general/zypper_module.html
     #############################################
     - name: Install Apache on openSUSE
