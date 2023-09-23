@@ -18,6 +18,7 @@ resource "local_file" "variables" {
     # With Terraform generated variables file !!! Do not change manually !!!
     export MY_PROJECT='${google_project.my.project_id}'
     export MY_PUBSUB_TOPIC_CREATE='${google_pubsub_topic.create.name}'
+    export MY_PUBSUB_TOPIC_TEMP='${google_pubsub_topic.temp.name}'
     export MY_DNS_DOMAIN='${google_dns_managed_zone.dns.dns_name}'
     export MY_EXPIRES='${var.expires}'
     export MY_MAX_VMS='${var.max-vms}'
