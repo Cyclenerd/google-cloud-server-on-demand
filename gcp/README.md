@@ -31,30 +31,41 @@ Please verify the ownership of the domain (or a parent) at <http://www.google.co
 
 ## Create Project
 
-1. Authentication
+### Authentication
+
+1. To initiate authorization, enter the following command:
+
+	```bash
+	gcloud auth application-default login --no-launch-browser
+	```
+
+1. Copy the long URL that begins with `https://accounts.google.com/o/oauth2/auth...`
+1. Paste this URL into the browser with which you are currently logged in with your admin account.
+1. Copy the authorization code from the web browser.
+1. Paste the authorization code back to the prompt,
+   "Enter authorization code", and press Enter to complete the authorization.
+
+### Set quota project
+
+```bash
+gcloud auth application-default set-quota-project [EXISTING-GOOGLE-PROJECT]
+```
+
+### Initialize
 	
-	```bash
-	gcloud auth application-default login
-	```
+```bash
+terraform init
+```
 
-1. Set quota project
+### Apply
 
-	```bash
-	gcloud auth application-default set-quota-project [EXISTING-GOOGLE-PROJECT]
-	``````
+```bash
+terraform apply
+```
 
-1. Initialize
-	
-	```bash
-	terraform init
-	```
-1. Apply
+### Copy
 
-	```bash
-	terraform apply
-	```
-
-1. Copy `variables.sh` and `pi-private-key.json` to `pi` directory:
+Copy `variables.sh` and `pi-private-key.json` to `pi` directory:
 
 	```bash
 	cp variables.sh ../pi/
