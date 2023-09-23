@@ -46,10 +46,10 @@ The following technologies are used:
 
 - [x] [Compute Engine](https://cloud.google.com/compute)
 - [x] [Operating system images](https://cloud.google.com/compute/docs/images/os-details)
-	- [x] Debian GNU/Linux
-	- [x] Ubuntu LTS
-	- [x] Rocky Linux
-	- [x] openSUSE
+	- [x] [Debian GNU/Linux](https://en.wikipedia.org/wiki/Debian)
+	- [x] [Ubuntu LTS](https://en.wikipedia.org/wiki/Ubuntu)
+	- [x] [Fedora Linux](https://en.wikipedia.org/wiki/Fedora_Linux)
+	- [x] [openSUSE](https://en.wikipedia.org/wiki/OpenSUSE)
 - [x] [Cloud Storage](https://cloud.google.com/storage)
 - [x] [Cloud Source Repositories](https://cloud.google.com/source-repositories)
 - [x] [Cloud Pub/Sub](https://cloud.google.com/pubsub)
@@ -103,7 +103,7 @@ All components put together correctly result in the Server on Demand Appliance G
 
 ![Bagde: Debian](https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white)
 ![Bagde: Ubuntu](https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white)
-![Bagde: Rocky Linux](https://img.shields.io/badge/Rocky%20Linux-10B981.svg?logo=rockylinux&logoColor=white)
+![Bagde: Fedora](https://img.shields.io/badge/Fedora-51A2DA.svg?logo=fedora&logoColor=white)
 ![Bagde: openSUSE](https://img.shields.io/badge/openSUSE-73BA25.svg?logo=opensuse&logoColor=white)
 
 https://user-images.githubusercontent.com/176242/205736692-b19bca68-a94c-4e95-8c32-79a9f7dfc7a9.mp4
@@ -120,9 +120,9 @@ further steps are executed in the cloud.
 **Raspberry Pi:**
 
 1. User presses one of the four buttons
-	* 🔵 Blue : Debian GNU/Linux
+	* 🔵 Blue : Fedora Linux
 	* 🟡 Yellow : Ubuntu LTS
-	* 🔴 Red : Rocky Linux
+	* 🔴 Red : Debian GNU/Linux
 	* 🟢 Green : openSUSE
 2. Message is published to Cloud Pub/Sub topic
 3. Paper receipt with login information is printed
