@@ -1,3 +1,2 @@
-# Function dependencies, for example:
-# package>=version
-requests>=2.28
+# Function dependencies
+requests==2.31.0
