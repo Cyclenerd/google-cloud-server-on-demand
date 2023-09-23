@@ -115,4 +115,4 @@ steps:
           -i $(cat "/workspace/nat_ip.txt"), || exit 9
 
 tags: ["create-gce-vm"]
-timeout: 600s
+timeout: 1200s
