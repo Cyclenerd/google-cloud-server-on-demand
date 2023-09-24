@@ -8,7 +8,7 @@ resource "random_uuid" "cloudfunction-cloudbuild" {
 # Create bucket for Cloud Function source code
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket
 resource "google_storage_bucket" "cloudfunction-cloudbuild" {
-  name                        = "cloudfunction-source-${random_uuid.cloudfunction-cloudbuild.id}"
+  name                        = "cloudfunction-discord-${random_uuid.cloudfunction-cloudbuild.id}"
   project                     = google_project.my.project_id
   location                    = var.region
   force_destroy               = true
@@ -64,14 +64,14 @@ resource "google_cloudfunctions_function" "cloudfunction-cloudbuild" {
   docker_repository = google_artifact_registry_repository.docker.id
   # Runtime ID
   # https://cloud.google.com/functions/docs/concepts/exec#runtimes
-  runtime               = "python39"
+  runtime               = "python311"
   available_memory_mb   = 128
   source_archive_bucket = google_storage_bucket.cloudfunction-cloudbuild.name
   source_archive_object = google_storage_bucket_object.cloudfunction-cloudbuild.name
   entry_point           = "discord"
   timeout               = 120
   min_instances         = 0
-  max_instances         = 100
+  max_instances         = 2
   event_trigger {
     event_type = "google.pubsub.topic.publish"
     resource   = google_pubsub_topic.logsink-cloudbuild.name

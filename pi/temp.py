@@ -44,12 +44,12 @@ if not project_id:
 # MY_PUBSUB_TOPIC_CREATE
 topic_id = ""
 try:
-    topic_id = os.environ['MY_PUBSUB_TOPIC_CREATE']
+    topic_id = os.environ['MY_PUBSUB_TOPIC_TEMP']
 except KeyError:
-    sys.exit("[ERROR] Environment variable MY_PUBSUB_TOPIC_CREATE not set!")
+    sys.exit("[ERROR] Environment variable MY_PUBSUB_TOPIC_TEMP not set!")
 
 if not topic_id:
-    sys.exit("[ERROR] Please check MY_PUBSUB_TOPIC_CREATE.")
+    sys.exit("[ERROR] Please check MY_PUBSUB_TOPIC_TEMP.")
 
 # Get CPU temperature
 cpu = CPUTemperature()
