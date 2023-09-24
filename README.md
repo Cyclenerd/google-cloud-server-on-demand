@@ -276,6 +276,26 @@ Get notified via [Discord](https://discord.com/) when a Cloud Build job is faile
 
 You can test the notification with the manual Cloud Build trigger `simulate-error`.
 
+### Raspberry Pi CPU temp. monitoring
+
+The CPU of the Raspberry Pi can get hot in the wooden box.
+For safety and documentation, the CPU temperature is logged and can be monitored.
+
+![Image: CPU temp. monitoring](./img/temp-monitoring.png)
+
+
+### Monitoring dashboards
+
+Two custom monitoring dashboards are set up:
+
+#### Raspberry Pi
+
+![Image: Raspberry Pi monitoring dashbaord](./img/monitoring-dashboard-raspi.png)
+
+#### VMs
+
+![Image: VMs monitoring dashbaord](./img/monitoring-dashboard-vms.png)
+
 ### Artifact Registry repository
 
 You can use the Artifact Registry as a location for the Docker container image.
