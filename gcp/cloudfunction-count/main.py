@@ -25,7 +25,7 @@ import time
 from google.cloud import monitoring_v3
 
 
-def temp(data: dict, context):
+def count(data: dict, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
     Args:
         data (dict): Event payload.

@@ -64,7 +64,7 @@ resource "google_cloudfunctions_function" "cloudfunction-count" {
   available_memory_mb   = 128
   source_archive_bucket = google_storage_bucket.cloudfunction-count.name
   source_archive_object = google_storage_bucket_object.cloudfunction-count.name
-  entry_point           = "temp"
+  entry_point           = "count"
   timeout               = 120
   min_instances         = 0
   max_instances         = 20
@@ -81,7 +81,6 @@ resource "google_cloudfunctions_function" "cloudfunction-count" {
   environment_variables = {
     MY_GOOGLE_CLOUD_PROJECT = google_project.my.project_id
     MY_GOOGLE_CLOUD_REGION  = var.region
-
   }
   depends_on = [
     null_resource.wait-for-docker-registry,

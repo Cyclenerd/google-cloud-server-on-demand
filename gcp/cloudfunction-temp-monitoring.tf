@@ -81,7 +81,6 @@ resource "google_cloudfunctions_function" "cloudfunction-temp-monitoring" {
   environment_variables = {
     MY_GOOGLE_CLOUD_PROJECT = google_project.my.project_id
     MY_GOOGLE_CLOUD_REGION  = var.region
-
   }
   depends_on = [
     null_resource.wait-for-docker-registry,
