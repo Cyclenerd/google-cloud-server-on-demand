@@ -34,3 +34,12 @@ resource "google_pubsub_topic_iam_member" "pi-publisher" {
   member     = "serviceAccount:${google_service_account.pi.email}"
   depends_on = [null_resource.wait-for-pi]
 }
+
+resource "google_pubsub_topic_iam_member" "count-subscriber" {
+  project = google_project.my.project_id
+  topic   = google_pubsub_topic.create.name
+  # https://cloud.google.com/iam/docs/understanding-roles#pub-sub-roles
+  role       = "roles/pubsub.subscriber"
+  member     = "serviceAccount:${google_service_account.count.email}"
+  depends_on = [null_resource.wait-for-count]
+}
