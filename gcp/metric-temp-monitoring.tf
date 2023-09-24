@@ -1,5 +1,6 @@
 # Create monitoring metric for CPU temperature of the Raspberry Pi
 
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_metric_descriptor
 resource "google_monitoring_metric_descriptor" "temp-monitoring" {
   project      = google_project.my.project_id
   description  = "CPU temp. of the Raspberry Pi"

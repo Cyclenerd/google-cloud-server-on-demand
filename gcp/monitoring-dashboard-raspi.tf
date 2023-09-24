@@ -15,7 +15,7 @@ resource "google_monitoring_dashboard" "dashboard-raspi" {
       {
         "height": 16,
         "widget": {
-          "title": "CPU Temperature",
+          "title": "🌡️ CPU Temperature",
           "xyChart": {
             "chartOptions": {
               "mode": "COLOR"
@@ -50,7 +50,7 @@ resource "google_monitoring_dashboard" "dashboard-raspi" {
             }
           }
         },
-        "width": 24
+        "width": 27
       },
       {
         "height": 8,
@@ -87,10 +87,10 @@ resource "google_monitoring_dashboard" "dashboard-raspi" {
               }
             }
           },
-          "title": "Maximum"
+          "title": "🌡️ Maximum"
         },
-        "width": 16,
-        "xPos": 24
+        "width": 10,
+        "xPos": 27
       },
       {
         "height": 8,
@@ -127,11 +127,110 @@ resource "google_monitoring_dashboard" "dashboard-raspi" {
               }
             }
           },
-          "title": "Mean"
+          "title": "🌡️ Mean"
         },
-        "width": 16,
-        "xPos": 24,
+        "width": 10,
+        "xPos": 27,
         "yPos": 8
+      },
+      {
+        "height": 8,
+        "widget": {
+          "scorecard": {
+            "blankView": {},
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "outputFullDuration": true,
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_SUM",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_SUM"
+                },
+                "filter": "metric.type=\"custom.googleapis.com/compute/os/images\" resource.type=\"global\" metric.label.\"image\"=monitoring.regex.full_match(\".*fedora.*\")"
+              }
+            }
+          },
+          "title": "🔵 Fedora"
+        },
+        "width": 9,
+        "yPos": 16
+      },
+      {
+        "height": 8,
+        "widget": {
+          "scorecard": {
+            "blankView": {},
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "outputFullDuration": true,
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_SUM",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_SUM"
+                },
+                "filter": "metric.type=\"custom.googleapis.com/compute/os/images\" resource.type=\"global\" metric.label.\"image\"=monitoring.regex.full_match(\".*ubuntu.*\")"
+              }
+            }
+          },
+          "title": "🟡 Ubuntu"
+        },
+        "width": 9,
+        "xPos": 9,
+        "yPos": 16
+      },
+      {
+        "height": 8,
+        "widget": {
+          "scorecard": {
+            "blankView": {},
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "outputFullDuration": true,
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_SUM",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_SUM"
+                },
+                "filter": "metric.type=\"custom.googleapis.com/compute/os/images\" resource.type=\"global\" metric.label.\"image\"=monitoring.regex.full_match(\".*debian.*\")"
+              }
+            }
+          },
+          "title": "🔴 Debian"
+        },
+        "width": 9,
+        "xPos": 18,
+        "yPos": 16
+      },
+      {
+        "height": 8,
+        "widget": {
+          "scorecard": {
+            "blankView": {},
+            "thresholds": [],
+            "timeSeriesQuery": {
+              "outputFullDuration": true,
+              "timeSeriesFilter": {
+                "aggregation": {
+                  "alignmentPeriod": "60s",
+                  "crossSeriesReducer": "REDUCE_SUM",
+                  "groupByFields": [],
+                  "perSeriesAligner": "ALIGN_SUM"
+                },
+                "filter": "metric.type=\"custom.googleapis.com/compute/os/images\" resource.type=\"global\" metric.label.\"image\"=monitoring.regex.full_match(\".*suse.*\")"
+              }
+            }
+          },
+          "title": "🟢 openSUSE"
+        },
+        "width": 10,
+        "xPos": 27,
+        "yPos": 16
       }
     ]
   }
