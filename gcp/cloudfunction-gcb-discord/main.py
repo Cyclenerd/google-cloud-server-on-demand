@@ -20,7 +20,6 @@
 
 import os
 import re
-import sys
 import base64
 import json
 import requests
@@ -42,7 +41,8 @@ def discord(data: dict, context):
     if reqex:
         print("[OK] Discord webhook URL")
     else:
-        sys.exit("[ERROR] Invalid Discord webhook URL!")
+        print("[ERROR] Invalid Discord webhook URL!")
+        return
 
     # Pub/Sub message
     pubsub_data = base64.b64decode(data["data"]).decode("utf-8")
