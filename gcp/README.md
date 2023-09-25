@@ -67,10 +67,10 @@ terraform apply
 
 Copy `variables.sh` and `pi-private-key.json` to `pi` directory:
 
-	```bash
-	cp variables.sh ../pi/
-	cp pi-private-key.json ../pi/
-	```
+```bash
+cp variables.sh ../pi/
+cp pi-private-key.json ../pi/
+```
 
 ## DNS
 
