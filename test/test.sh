@@ -45,6 +45,6 @@ cd ../cloudbuild/                    || exit 9
 terraform init && terraform validate || exit 9
 cd ../gcp/                           || exit 9
 terraform init && terraform validate || exit 9
-cd ../t/                             || exit 9
+cd ../test/                          || exit 9
 terraform fmt -recursive -check -diff -no-color || exit 9
 tflint --recursive --no-color || exit 9
