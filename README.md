@@ -2,8 +2,6 @@
 
 **Get your own Google Compute Engine virtual machine (VM) with the simple push of a button.**
 
-![Image: Server on Demand Appliance (Google Compute Engine)](./img/soda-gce-photo.jpg)
-
 ![Image: Server on Demand Appliance at DIGITAL X 2023](./img/soda-gce-digitalx-2023.jpg)
 
 This project is intended to show how quickly and easily virtual machines can be configured and set up using Google Cloud and Infrastructure as Code (IaC) tools.
@@ -108,9 +106,9 @@ All components put together correctly result in the Server on Demand Appliance G
 
 ## 🪄 Process of creating a VM
 
-![Bagde: Debian](https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white)
-![Bagde: Ubuntu](https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white)
 ![Bagde: Fedora](https://img.shields.io/badge/Fedora-51A2DA.svg?logo=fedora&logoColor=white)
+![Bagde: Ubuntu](https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white)
+![Bagde: Debian](https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white)
 ![Bagde: openSUSE](https://img.shields.io/badge/openSUSE-73BA25.svg?logo=opensuse&logoColor=white)
 
 https://user-images.githubusercontent.com/176242/205736692-b19bca68-a94c-4e95-8c32-79a9f7dfc7a9.mp4
