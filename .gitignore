@@ -15,6 +15,7 @@ crash.*.log
 # to change depending on the environment.
 *.tfvars
 *.tfvars.json
+*.pkrvars.hcl
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
@@ -36,10 +37,9 @@ terraform.rc
 *.lock.hcl
 *.json
 
-*.php
-
 *.zip
-
+*.key
+*.key.pub
 *.db
 
 sourcerepo-url.sh

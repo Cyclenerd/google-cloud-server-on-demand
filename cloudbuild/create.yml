@@ -107,7 +107,7 @@ steps:
         ssh -o 'StrictHostKeyChecking=accept-new' -i '/workspace/ssh.key' ansible@$(cat "/workspace/nat_ip.txt") uptime || exit 9
         echo
         echo "Run Ansible Playbook..."
-        ansible-playbook "gce-vm-ansible.yml" \
+        ansible-playbook "setup.yml" \
           -u "ansible" \
           -e "ansible_ssh_private_key_file=/workspace/ssh.key" \
           -e "username=$(jq -er '.username' < "/workspace/data.json")" \

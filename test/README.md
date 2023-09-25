@@ -1,6 +1,6 @@
 # Test
 
 ```bash
-cd t
+cd test
 bash test.sh
 ```

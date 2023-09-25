@@ -2,8 +2,6 @@
 
 **Get your own Google Compute Engine virtual machine (VM) with the simple push of a button.**
 
-![Image: Server on Demand Appliance (Google Compute Engine)](./img/soda-gce-photo.jpg)
-
 ![Image: Server on Demand Appliance at DIGITAL X 2023](./img/soda-gce-digitalx-2023.jpg)
 
 This project is intended to show how quickly and easily virtual machines can be configured and set up using Google Cloud and Infrastructure as Code (IaC) tools.
@@ -16,7 +14,7 @@ You will get your own user login data printed on a receipt and you can log in vi
 ![Image: Terraform and Ansible](./img/terraform_ansible_logo.jpg)
 
 This project also shows you how well the Google Cloud can scale.
-Tested with over 100 VMs. [700 VMs](./QUOTA.md) is the default limit.
+Tested with over 150 VMs. [700 VMs](./QUOTA.md) is the default limit.
 
 ## 🤔 Why
 
@@ -36,6 +34,7 @@ Thanks to Google and the Internet, the hardware does not have to be physically l
 
 ![Bagde: Google Cloud](https://img.shields.io/badge/Google%20Cloud-%234285F4.svg?logo=google-cloud&logoColor=white)
 ![Badge: Terraform](https://img.shields.io/badge/Terraform-%235835CC.svg?logo=terraform&logoColor=white)
+![Badge: Packer](https://img.shields.io/badge/Packer-02A8EF.svg?logo=packer&logoColor=white)
 ![Badge: Ansible](https://img.shields.io/badge/Ansible-%231A1918.svg?logo=ansible&logoColor=white)
 ![Bagde: Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-C51A4A?logo=Raspberry-Pi)
 
@@ -74,19 +73,25 @@ The following technologies are used:
 </details>
 
 <details>
+<summary><b>Packer</b></summary>
+
+- [x] [Google Cloud Platform](https://developer.hashicorp.com/packer/integrations/hashicorp/googlecompute)
+- [x] [Ansible](https://developer.hashicorp.com/packer/integrations/hashicorp/ansible)
+</details>
+
+<details>
 <summary><b>Ansible</b></summary>
 
-- Built-in modules:
-	- [x] apt
-	- [x] command
-	- [x] copy
-	- [x] dnf
-	- [x] file
-	- [x] get_url
-	- [x] git
-	- [x] uri
-	- [x] user
-	- [x] zypper
+- [x] apt
+- [x] command
+- [x] copy
+- [x] dnf
+- [x] file
+- [x] get_url
+- [x] git
+- [x] uri
+- [x] user
+- [x] zypper
 </details>
 
 <details>
@@ -101,9 +106,9 @@ All components put together correctly result in the Server on Demand Appliance G
 
 ## 🪄 Process of creating a VM
 
-![Bagde: Debian](https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white)
-![Bagde: Ubuntu](https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white)
 ![Bagde: Fedora](https://img.shields.io/badge/Fedora-51A2DA.svg?logo=fedora&logoColor=white)
+![Bagde: Ubuntu](https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white)
+![Bagde: Debian](https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white)
 ![Bagde: openSUSE](https://img.shields.io/badge/openSUSE-73BA25.svg?logo=opensuse&logoColor=white)
 
 https://user-images.githubusercontent.com/176242/205736692-b19bca68-a94c-4e95-8c32-79a9f7dfc7a9.mp4
@@ -137,13 +142,12 @@ further steps are executed in the cloud.
 5. Terraform creates the infrastructure
 	* Static public IP is registered
 	* DNS entry is created
-	* VM with SSD disk and operating system is created
+	* VM with disk and operating system is created
+	* Custom OS image is used
 	* Cloud Scheduler to destroy infrastructure is scheduled
 	* Terraform state is stored in a Google Cloud Storage bucket
 6. Ansible takes care of configuring the operating system
 	* Set up user (username and password)
-	* Configure SSH
-	* Install web server
 
 ### Machine configuration
 
@@ -169,7 +173,7 @@ Estimated cost per `e2-micro` VM, without guarantee:
 | Static public IP | `0.0034` | `0.01` |
 | **Total**        | `0.0160` | `0.05` |
 
-¹ Disk: 0.1 USD per 1 GB and month,
+¹ Balanced persistent disk: 0.1 USD per 1 GB and month,
 25 GB per month = 2.50 USD,
 one month = 730 hours,
 2.50 USD / 730h = 0.0034 USD,

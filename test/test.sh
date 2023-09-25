@@ -28,8 +28,11 @@ shellcheck ../pi/*.sh         || exit 9
 yamllint ../cloudbuild/*.yml        || exit 9
 
 # Ansible
-ansible-lint ../cloudbuild/gce-vm-ansible.yml || exit 9
-ansible-lint ../pi/pi-soda.yml                || exit 9
+ansible-lint ../cloudbuild/setup.yml        || exit 9
+ansible-lint ../pi/pi-soda.yml              || exit 9
+ansible-lint ../cloudbuild/linux/debian.yml || exit 9
+ansible-lint ../cloudbuild/linux/fedora.yml || exit 9
+ansible-lint ../cloudbuild/linux/suse.yml   || exit 9
 
 # Python
 flake8 --ignore=W292 --max-line-length=127 --show-source --statistics ../pi/*.py || exit 9
@@ -42,6 +45,6 @@ cd ../cloudbuild/                    || exit 9
 terraform init && terraform validate || exit 9
 cd ../gcp/                           || exit 9
 terraform init && terraform validate || exit 9
-cd ../t/                             || exit 9
+cd ../test/                          || exit 9
 terraform fmt -recursive -check -diff -no-color || exit 9
 tflint --recursive --no-color || exit 9

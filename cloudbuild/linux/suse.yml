@@ -1,0 +1,37 @@
+---
+
+- name: openSUSE
+  hosts: default
+  become: true
+
+  tasks:
+    - name: Allow SSH connection with password
+      ansible.builtin.replace:
+        path: /etc/ssh/sshd_config
+        regexp: 'PasswordAuthentication no'
+        replace: 'PasswordAuthentication yes'
+    - name: Install Apache
+      community.general.zypper:
+        name: apache2
+        state: present
+        update_cache: true
+    - name: Install PHP
+      community.general.zypper:
+        name: php8
+        state: present
+    - name: Install PHP Module for Apache
+      community.general.zypper:
+        name: apache2-mod_php8
+        state: present
+    - name: Start Apache daemon
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+    - name: Copy HTML index.php
+      ansible.builtin.copy:
+        src: index.php
+        dest: /srv/www/htdocs/index.php
+        owner: root
+        group: root
+        mode: '0755'

@@ -1,0 +1,52 @@
+# Build custom OS images
+steps:
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» VARIABLES"
+        echo    'Terraform State Bucket : ${_STATE_BUCKET}'
+        echo    'Cloud Build ID         : $BUILD_ID'
+        echo    'Cloud Build Region     : $LOCATION'
+        echo    'Project ID             : $PROJECT_ID'
+        echo    'Project Nr             : $PROJECT_NUMBER'
+
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» SSH"
+        echo
+        ssh-keygen -N '' -C 'packer@cloudbuild' -t ed25519 -f '/workspace/cloudbuild/linux/ssh.key' || exit 9
+        echo
+        echo "Public Key :"
+        cat "/workspace/cloudbuild/linux/ssh.key.pub" || exit 9
+
+  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        echo "» PACKER"
+        echo
+        echo "Change dir"
+        cd "/workspace/cloudbuild/linux" || exit 9
+        echo
+        echo "Get variables (PKRVARS)..."
+        gsutil cp "gs://${_STATE_BUCKET}/output.pkrvars.hcl" "variables.auto.pkrvars.hcl" || exit 9
+        echo
+        echo "Initialize..."
+        packer init . || exit 9
+        echo
+        echo "» BUILD"
+        echo
+        packer build \
+          -color=false \
+          -parallel-builds=4 \
+          -var="build_id=$BUILD_ID" \
+          -force . || exit 9
+
+tags: ["build-os-images"]
+timeout: 1800s

@@ -15,108 +15,8 @@
  */
 
 /*****************************************************************************
- * Variables
+ * Create GCE Instance
  *****************************************************************************/
-
-variable "build_id" {
-  type        = string
-  nullable    = false
-  description = "Google Cloud Build ID (is passed by Cloud Build)"
-}
-
-variable "project" {
-  type        = string
-  nullable    = false
-  description = "Google Cloud project ID"
-}
-
-variable "region" {
-  type        = string
-  nullable    = false
-  description = "Google Cloud region"
-}
-
-variable "zone" {
-  type        = string
-  nullable    = false
-  description = "Zone in Google Cloud region"
-}
-
-variable "scheduler-region" {
-  type        = string
-  nullable    = false
-  description = "Google Cloud region for Google Cloud scheduler"
-}
-
-variable "expires" {
-  type        = string
-  nullable    = false
-  description = "Duration until the VM is destroyed"
-}
-
-variable "network" {
-  type        = string
-  nullable    = false
-  description = "VPC network"
-}
-
-variable "subnetwork" {
-  type        = string
-  nullable    = false
-  description = "VPC subnetwork"
-}
-
-variable "dns-name" {
-  type        = string
-  nullable    = false
-  description = "DNS name for VM"
-  default     = "cname-for-a-dns-name"
-}
-
-variable "dns-zone" {
-  type        = string
-  nullable    = false
-  description = "Google Cloud DNS managed zone name"
-}
-
-variable "dns-domain" {
-  type        = string
-  nullable    = false
-  description = "Google Cloud DNS domain for managed zone"
-}
-
-variable "pub-sub-destroy-topic" {
-  type        = string
-  nullable    = false
-  description = "Pub/sub topic to destroy GCE instance build after N hours"
-}
-
-variable "sa-compute" {
-  type        = string
-  nullable    = false
-  description = "SA for Compute Engine instances"
-}
-
-variable "machine_type" {
-  type        = string
-  nullable    = false
-  description = "Google Compute Engine machine type"
-  default     = "e2-micro"
-}
-
-variable "image" {
-  type        = string
-  nullable    = false
-  description = "Google Compute Engine operating system image"
-  default     = "debian-cloud/debian-12"
-}
-
-variable "ansible_ssh_pub_key" {
-  type        = string
-  nullable    = false
-  description = "SSH public key for Ansible"
-  default     = "/workspace/ssh.key.pub"
-}
 
 locals {
   // Split build ID, use first part as name
@@ -133,21 +33,6 @@ locals {
   destroy_hour   = formatdate("h", local.destroy) # 24-hour number unpadded, like "2".
   destroy_minute = formatdate("m", local.destroy) # Minute within hour unpadded, like "5".
 }
-
-/*****************************************************************************
- * Google Provider
- *****************************************************************************/
-
-
-provider "google" {
-  project = var.project
-  region  = var.region
-  zone    = "${var.region}-${var.zone}"
-}
-
-/*****************************************************************************
- * GCE Instance
- *****************************************************************************/
 
 # Reserve external static IP for VM
 # https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address
@@ -173,7 +58,8 @@ resource "google_compute_instance" "vm" {
     initialize_params {
       size  = 25
       type  = "pd-balanced"
-      image = var.image
+      # Use custom OS image
+      image = "projects/${var.project}/global/images/${var.image}"
     }
   }
   network_interface {
@@ -261,42 +147,6 @@ resource "google_cloud_scheduler_job" "destroy" {
   depends_on = [google_compute_instance.vm]
 }
 
-/*****************************************************************************
- * PHP Website
- *****************************************************************************/
-
-# Create small PHP website
-resource "local_file" "php" {
-  content  = <<-EOF
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello from Slalom and Google</title>
-    <style>
-    body {
-      background-color: #0C62FB;
-      color: #FFFFFF;
-      font-family: "Lucida Console", "Courier New", monospace;
-    }
-    </style>
-    </head>
-    <body>
-      <h1>👋 Hello</h1>
-      <p>I'm a web server in the Google Cloud region <i>${var.region}</i>.</p>
-      <br>
-      <p>My hostname is:                         <i><?php system('hostname', $retval); ?></i></p>
-      <p>I'm running the operating system image: <i>${var.image}</i></p>
-      <p>My detailed system information:         <i><?php system('uname -a', $retval); ?></i></p>
-      <p>I'm online without a reboot since:      <i><?php system('uptime', $retval);   ?></i></p>
-      <br><hr>
-      <p><i><?php system('date', $retval); ?></i></p>
-    </body>
-    </html>
-  EOF
-  filename = "/workspace/index.php"
-}
 
 /*****************************************************************************
  * Output

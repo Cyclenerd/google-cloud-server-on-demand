@@ -28,4 +28,4 @@ jobs:
         with:
           tflint_version: latest
       - name: Test
-        run: cd t && bash test.sh
+        run: cd test && bash test.sh

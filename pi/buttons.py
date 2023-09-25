@@ -252,21 +252,25 @@ def genHostname():
     return hostname
 
 
-# Get Google Cloud OS image
+# Use custom OS image
 def getImage(int_nr):
-    image = "debian-cloud/debian-12"
+    image = "custom-debian"
     # Blue
     if int_nr == 1:
-        image = "fedora-cloud/fedora-cloud-38"
+        image = "custom-fedora"
+        # image = "fedora-cloud/fedora-cloud-38"
     # Yellow
     elif int_nr == 2:
-        image = "ubuntu-os-cloud/ubuntu-2204-lts"
+        image = "custom-ubuntu"
+        # image = "ubuntu-os-cloud/ubuntu-2204-lts"
     # Red
     elif int_nr == 3:
-        image = "debian-cloud/debian-12"
+        image = "custom-debian"
+        # image = "debian-cloud/debian-12"
     # Green
     elif int_nr == 4:
-        image = "opensuse-cloud/opensuse-leap"
+        image = "custom-suse"
+        # image = "opensuse-cloud/opensuse-leap"
     return image
 
 
@@ -313,7 +317,7 @@ def printData(data):
         image_name = "Ubuntu"
     elif (image.__contains__('fedora')):
         image_name = "Fedora Linux"
-    elif (image.__contains__('opensuse')):
+    elif (image.__contains__('suse')):
         image_name = "openSUSE"
     # Logo
     p.image("image.png")
@@ -343,33 +347,31 @@ def printData(data):
     # QR Code
     printTitle("HTTP")
     printText("There is also a nice website.")
-    printText("Visit it with your browser...")
+    printText("Visit it with your browser:")
     p.qr(f"http://{hostname}/", size=8)
     printNewline()
     printNewline()
     printTitle("Note")
     printText("Since you have this paper in")
     printText("your hand, a VM is started and")
-    printText("freshly installed for you. It is")
-    printText("not a hot standby machine or a")
-    printText("preconfigured image. Give it")
-    printText("about 4min. until automation has")
-    printText("created everything.")
+    printText("freshly installed for you. Give")
+    printText("it about 3min. until automation")
+    printText("has created everything.")
     printNewline()
     # Slalom website
-    printTitle("About Slalom")
-    printText("Learn more about Slalom & Google")
-    p.qr("https://bit.ly/slalom-google", size=8)
-    printNewline()
-    printNewline()
-    printTitle("One Tree Planted")
-    printText("Thank you for spending time with")
-    printText("us! For every VM created at")
-    printText("DIGITAL X we will plant a tree")
-    printText("through the organization")
-    printText("One Tree Planted.")
+    printTitle("About")
+    printText("Learn more about this showcase:")
+    p.qr("https://bit.ly/gce-soda", size=8)
+    # printNewline()
+    # printNewline()
+    # printTitle("One Tree Planted")
+    # printText("Thank you for spending time with")
+    # printText("us! For every VM created at")
+    # printText("DIGITAL X we will plant a tree")
+    # printText("through the organization")
+    # printText("One Tree Planted.")
     # Cut
-    for i in range(4):
+    for i in range(5):
         printNewline()
 
 
