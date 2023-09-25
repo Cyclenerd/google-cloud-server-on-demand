@@ -43,8 +43,10 @@ steps:
         echo "» BUILD"
         echo
         packer build \
+          -color=false \
+          -parallel-builds=4 \
           -var="build_id=$BUILD_ID" \
-          --force . || exit 9
+          -force . || exit 9
 
 tags: ["build-os-images"]
 timeout: 1800s

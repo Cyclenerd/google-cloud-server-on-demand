@@ -36,9 +36,8 @@ source "googlecompute" "ubuntu" {
   image_family            = "ubuntu-2204-lts"
   image_storage_locations = [var.region]
   image_labels = {
-    "public-image" = "false"
-    "packer"       = "true"
-    "build"        = var.build_id
+    "packer" = "true"
+    "build"  = var.build_id
   }
 }
 

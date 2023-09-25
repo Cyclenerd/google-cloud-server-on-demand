@@ -36,9 +36,8 @@ source "googlecompute" "fedora" {
   image_family            = "fedora-cloud-38"
   image_storage_locations = [var.region]
   image_labels = {
-    "public-image" = "false"
-    "packer"       = "true"
-    "build"        = var.build_id
+    "packer" = "true"
+    "build"  = var.build_id
   }
 }
 

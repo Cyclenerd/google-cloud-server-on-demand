@@ -36,9 +36,8 @@ source "googlecompute" "debian" {
   image_family            = "debian-12"
   image_storage_locations = [var.region]
   image_labels = {
-    "public-image" = "false"
-    "packer"       = "true"
-    "build"        = var.build_id
+    "packer" = "true"
+    "build"  = var.build_id
   }
 }
 

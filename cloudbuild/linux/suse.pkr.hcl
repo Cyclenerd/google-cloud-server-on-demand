@@ -36,9 +36,8 @@ source "googlecompute" "suse" {
   image_family            = "opensuse-leap"
   image_storage_locations = [var.region]
   image_labels = {
-    "public-image" = "false"
-    "packer"       = "true"
-    "build"        = var.build_id
+    "packer" = "true"
+    "build"  = var.build_id
   }
 }
 
