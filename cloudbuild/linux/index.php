@@ -16,9 +16,12 @@ body {
 <h1>👋 Hello</h1>
 <p>I'm a web server in the Google Cloud.</p>
 <br>
-<p><b>My hostname is:</b>                    <?php system('hostname', $retval); ?></p>
-<p><b>My kernel version:</b>                 <?php system('uname -v', $retval); ?></p>
-<p><b>I'm online without a reboot since:</b> <?php system('uptime', $retval);   ?></p>
+<p><b>My hostname is:</b>    <?php system('hostname -s', $retval); ?></p>
+<p><b>My kernel release:</b> <?php system('uname -r', $retval); ?></p>
+<p>
+<b>I'm online without a reboot since:</b><br>
+<?php system('uptime', $retval); ?>
+</p>
 <br><hr>
 <p><i><?php system('date', $retval); ?></i></p>
 </body>
