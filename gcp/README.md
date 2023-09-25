@@ -119,6 +119,29 @@ Copy this repo to Google Cloud Source.
 
 If you want to log out again, follow these steps: [Revoke cookies](https://www.google.com/accounts/IssuedAuthSubTokens)
 
+## Custom OS images
+
+After pushing this repo to Google Cloud Source, a Google Cloud Build is triggered that creates the custom OS images.
+
+![Image: Build custom OS images with Packer](../img/build-os-images.png)
+
+List OS images:
+
+```bash
+gcloud compute images list \
+--no-standard-images \
+--project [YOUR-GOOGLE-CLOUD-PROJECT]
+```
+
+Output:
+
+```text
+NAME           FAMILY           STATUS
+custom-debian  debian-12        READY
+custom-fedora  fedora-cloud-38  READY
+custom-suse    opensuse-leap    READY
+custom-ubuntu  ubuntu-2204-lts  READY
+```
 
 ## Done
 

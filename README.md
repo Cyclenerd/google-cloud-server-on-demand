@@ -16,7 +16,7 @@ You will get your own user login data printed on a receipt and you can log in vi
 ![Image: Terraform and Ansible](./img/terraform_ansible_logo.jpg)
 
 This project also shows you how well the Google Cloud can scale.
-Tested with over 100 VMs. [700 VMs](./QUOTA.md) is the default limit.
+Tested with over 150 VMs. [700 VMs](./QUOTA.md) is the default limit.
 
 ## 🤔 Why
 
@@ -36,6 +36,7 @@ Thanks to Google and the Internet, the hardware does not have to be physically l
 
 ![Bagde: Google Cloud](https://img.shields.io/badge/Google%20Cloud-%234285F4.svg?logo=google-cloud&logoColor=white)
 ![Badge: Terraform](https://img.shields.io/badge/Terraform-%235835CC.svg?logo=terraform&logoColor=white)
+![Badge: Packer](https://img.shields.io/badge/Packer-02A8EF.svg?logo=packer&logoColor=white)
 ![Badge: Ansible](https://img.shields.io/badge/Ansible-%231A1918.svg?logo=ansible&logoColor=white)
 ![Bagde: Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-C51A4A?logo=Raspberry-Pi)
 
@@ -74,19 +75,25 @@ The following technologies are used:
 </details>
 
 <details>
+<summary><b>Packer</b></summary>
+
+- [x] [Google Cloud Platform](https://developer.hashicorp.com/packer/integrations/hashicorp/googlecompute)
+- [x] [Ansible](https://developer.hashicorp.com/packer/integrations/hashicorp/ansible)
+</details>
+
+<details>
 <summary><b>Ansible</b></summary>
 
-- Built-in modules:
-	- [x] apt
-	- [x] command
-	- [x] copy
-	- [x] dnf
-	- [x] file
-	- [x] get_url
-	- [x] git
-	- [x] uri
-	- [x] user
-	- [x] zypper
+- [x] apt
+- [x] command
+- [x] copy
+- [x] dnf
+- [x] file
+- [x] get_url
+- [x] git
+- [x] uri
+- [x] user
+- [x] zypper
 </details>
 
 <details>
@@ -137,13 +144,12 @@ further steps are executed in the cloud.
 5. Terraform creates the infrastructure
 	* Static public IP is registered
 	* DNS entry is created
-	* VM with SSD disk and operating system is created
+	* VM with disk and operating system is created
+	* Custom OS image is used
 	* Cloud Scheduler to destroy infrastructure is scheduled
 	* Terraform state is stored in a Google Cloud Storage bucket
 6. Ansible takes care of configuring the operating system
 	* Set up user (username and password)
-	* Configure SSH
-	* Install web server
 
 ### Machine configuration
 
