@@ -1,0 +1,43 @@
+---
+
+- name: Debian/Ubuntu
+  hosts: default
+  become: true
+
+  tasks:
+    - name: Allow SSH connection with password
+      ansible.builtin.replace:
+        path: /etc/ssh/sshd_config
+        regexp: 'PasswordAuthentication no'
+        replace: 'PasswordAuthentication yes'
+    - name: Install Lighttpd
+      ansible.builtin.apt:
+        name: lighttpd
+        state: present
+        update_cache: true
+    - name: Install PHP
+      ansible.builtin.apt:
+        name: php-cgi
+        state: present
+    - name: Enable FastCGI config
+      file:
+        src: "/etc/lighttpd/conf-available/10-fastcgi.conf"
+        dest: "/etc/lighttpd/conf-enabled/10-fastcgi.conf"
+        state: link
+    - name: Enable PHP config
+      file:
+        src: "/etc/lighttpd/conf-available/15-fastcgi-php.conf"
+        dest: "/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
+        state: link
+    - name: Restart Lighttpd daemon
+      ansible.builtin.service:
+        name: lighttpd
+        state: restarted
+        enabled: true
+    - name: Copy HTML index.php
+      ansible.builtin.copy:
+        src: index.php
+        dest: /var/www/html/index.php
+        owner: root
+        group: root
+        mode: '0755'

@@ -85,8 +85,8 @@ try:
 except KeyError:
     sys.exit("[ERROR] Environment variable MY_EXPIRES not set!")
 
-# Set Google Cloud OS image
-image = "debian-cloud/debian-12"
+# Use custom OS image
+image = "custom-debian"
 
 # Set Linux username
 username = "tux"

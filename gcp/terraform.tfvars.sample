@@ -14,7 +14,10 @@ folder = "[FOLDER_ID]"
 dns-domain = "subdomain.domain.tld."
 
 # Google Cloud Source repository revision for Cloud Build tools and scripts
-cloud-build-source-repo-revision = "refs/heads/slalom"
+cloud-build-source-repo-revision = "refs/heads/master"
+
+# Google Cloud Source repository branch regular expression
+cloud-build-source-trigger-branch = "^master$"
 
 # Duration (minutes) until the VM is destroyed
 expires = "180"

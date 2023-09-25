@@ -110,6 +110,13 @@ variable "cloud-build-source-repo-revision" {
   default     = "refs/heads/master"
 }
 
+variable "cloud-build-source-trigger-branch" {
+  type        = string
+  nullable    = false
+  description = "Google Cloud Source repository branch regular expression"
+  default     = "^master$"
+}
+
 variable "discord-webhook-url" {
   type        = string
   nullable    = false

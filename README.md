@@ -169,7 +169,7 @@ Estimated cost per `e2-micro` VM, without guarantee:
 | Static public IP | `0.0034` | `0.01` |
 | **Total**        | `0.0160` | `0.05` |
 
-¹ Disk: 0.1 USD per 1 GB and month,
+¹ Balanced persistent disk: 0.1 USD per 1 GB and month,
 25 GB per month = 2.50 USD,
 one month = 730 hours,
 2.50 USD / 730h = 0.0034 USD,

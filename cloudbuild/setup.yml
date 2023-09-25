@@ -1,0 +1,21 @@
+---
+
+- name: Setup
+  hosts: all
+  # Default variables, overwrite with --extra-vars (or -e ) argument
+  vars:
+    username: default
+    password: $6$lHA3Ch1cPXn9HpNO$EI/O6TyDd0vUIPc1s958U/D3gNHWqvhGcFMVkR6T4sCtWtBEnolzGKCE0s9rWvVMRGfRxIjGQe9OlSRODLZmP/
+  become: true
+
+  tasks:
+    - name: Add user with a bash shell, add to group google-sudoers
+      ansible.builtin.user:
+        name: "{{ username }}"
+        # Password hash (sha512)
+        # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html#parameter-password
+        password: "{{ password }}"
+        shell: /bin/bash
+        groups: google-sudoers
+        create_home: true
+        append: true

@@ -1,0 +1,33 @@
+---
+
+- name: Fedora
+  hosts: default
+  become: true
+
+  tasks:
+    - name: Allow SSH connection with password
+      ansible.builtin.replace:
+        path: /etc/ssh/sshd_config
+        regexp: 'PasswordAuthentication no'
+        replace: 'PasswordAuthentication yes'
+    - name: Install Nginx
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+        update_cache: true
+    - name: Install PHP
+      ansible.builtin.dnf:
+        name: php-fpm
+        state: present
+    - name: Start Nginx daemon
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+    - name: Copy HTML index.php
+      ansible.builtin.copy:
+        src: index.php
+        dest: /usr/share/nginx/html/index.php
+        owner: root
+        group: root
+        mode: '0755'

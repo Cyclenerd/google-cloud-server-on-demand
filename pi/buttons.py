@@ -252,21 +252,25 @@ def genHostname():
     return hostname
 
 
-# Get Google Cloud OS image
+# Use custom OS image
 def getImage(int_nr):
-    image = "debian-cloud/debian-12"
+    image = "custom-debian"
     # Blue
     if int_nr == 1:
-        image = "fedora-cloud/fedora-cloud-38"
+        image = "custom-fedora"
+        #image = "fedora-cloud/fedora-cloud-38"
     # Yellow
     elif int_nr == 2:
-        image = "ubuntu-os-cloud/ubuntu-2204-lts"
+        image = "custom-ubuntu"
+        #image = "ubuntu-os-cloud/ubuntu-2204-lts"
     # Red
     elif int_nr == 3:
-        image = "debian-cloud/debian-12"
+        image = "custom-debian"
+        #image = "debian-cloud/debian-12"
     # Green
     elif int_nr == 4:
-        image = "opensuse-cloud/opensuse-leap"
+        image = "custom-suse"
+        #image = "opensuse-cloud/opensuse-leap"
     return image
 
 
@@ -313,7 +317,7 @@ def printData(data):
         image_name = "Ubuntu"
     elif (image.__contains__('fedora')):
         image_name = "Fedora Linux"
-    elif (image.__contains__('opensuse')):
+    elif (image.__contains__('suse')):
         image_name = "openSUSE"
     # Logo
     p.image("image.png")
