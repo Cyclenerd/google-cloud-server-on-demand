@@ -258,19 +258,19 @@ def getImage(int_nr):
     # Blue
     if int_nr == 1:
         image = "custom-fedora"
-        #image = "fedora-cloud/fedora-cloud-38"
+        # image = "fedora-cloud/fedora-cloud-38"
     # Yellow
     elif int_nr == 2:
         image = "custom-ubuntu"
-        #image = "ubuntu-os-cloud/ubuntu-2204-lts"
+        # image = "ubuntu-os-cloud/ubuntu-2204-lts"
     # Red
     elif int_nr == 3:
         image = "custom-debian"
-        #image = "debian-cloud/debian-12"
+        # image = "debian-cloud/debian-12"
     # Green
     elif int_nr == 4:
         image = "custom-suse"
-        #image = "opensuse-cloud/opensuse-leap"
+        # image = "opensuse-cloud/opensuse-leap"
     return image
 
 
@@ -362,14 +362,14 @@ def printData(data):
     printTitle("About")
     printText("Learn more about this showcase:")
     p.qr("https://bit.ly/gce-soda", size=8)
-    #printNewline()
-    #printNewline()
-    #printTitle("One Tree Planted")
-    #printText("Thank you for spending time with")
-    #printText("us! For every VM created at")
-    #printText("DIGITAL X we will plant a tree")
-    #printText("through the organization")
-    #printText("One Tree Planted.")
+    # printNewline()
+    # printNewline()
+    # printTitle("One Tree Planted")
+    # printText("Thank you for spending time with")
+    # printText("us! For every VM created at")
+    # printText("DIGITAL X we will plant a tree")
+    # printText("through the organization")
+    # printText("One Tree Planted.")
     # Cut
     for i in range(5):
         printNewline()
