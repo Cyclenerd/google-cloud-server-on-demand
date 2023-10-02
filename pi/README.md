@@ -90,11 +90,8 @@ b4 = Button(23)
 
 Connect the thermal receipt printer via USB to the Raspberry Pi.
 
-> I am using the [Hoin HOP-H58](https://www.hoinprinter.com/video/products-detail-906853) from eBay.
+> I tested the HOP-H58 and EM5820 thermal printers.
 > Any printer that supports ESC/POS commands should work.
-
-![Image: Hoin HOP-H58 USB Thermal Printer](../img/hoin_hop-h58.jpg)
-
 
 ## Software
 
