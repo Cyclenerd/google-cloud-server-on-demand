@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Nils Knieling
+# Copyright 2023 Nils Knieling
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 #
 # This Google Cloud Function reads Cloud Build status messages
-# from Pub/Sub logsink and sends a notification to Discord
+# from Pub/Sub logsink and sends a notification to Pushover
 # if the status is 'ERROR' or 'TIMEOUT'.
 #
 
@@ -24,15 +24,15 @@ import json
 import requests
 
 
-def discord(data: dict, context):
+def pushover(data: dict, context):
     """Triggered from a message on a Cloud Pub/Sub topic.
     Args:
-        data (dict): Event payload.
+        event (dict): Event payload.
         context (google.cloud.functions.Context): Metadata for the event.
     """
 
-    # Discord Webhook URL
-    url = os.getenv('DISCORD_WEBHOOK_URL')
+    pushover_user_key = os.getenv('PUSHOVER_USER_KEY')
+    pushover_api_token = os.getenv('PUSHOVER_API_TOKEN')
 
     console_url = 'https://console.cloud.google.com/cloud-build/builds'
 
@@ -52,33 +52,19 @@ def discord(data: dict, context):
     print(f"Timestamp: {pubsub_timestamp}")
 
     # Send notification
-    if pubsub_text_payload in ['ERROR', 'TIMEOUT']:
-        # Create webhook JSON
-        # https://discord.com/developers/docs/resources/webhook#execute-webhook
-        data = {}
-        data['embeds'] = []
-        embed = {}
-        embed['title'] = f'GCB {pubsub_text_payload}'
-        embed['description'] = f'Build ID:\n{pubsub_build_id}'
-        embed['url'] = (
-            f'{console_url};'
-            f'region=global/{pubsub_build_id}'
-            f'?project={pubsub_project_id}'
-        )
-        embed['timestamp'] = f'{pubsub_timestamp}'
-        embed['color'] = '16711680'
-        embed['author'] = {}
-        embed['author']['name'] = f'Project: {pubsub_project_id}'
-        embed['author']['url'] = f'{console_url}?project={pubsub_project_id}'
-        embed['footer'] = {}
-        embed['footer']['text'] = 'Google Cloud Build'
-        embed['footer']['icon_url'] = 'https://i.imgur.com/hO7DkUK.png'
-        # Image source: https://github.com/GoogleCloudBuild
-        data['embeds'].append(embed)
-        result = requests.post(
-            url,
-            data=json.dumps(data),
-            headers={"Content-Type": "application/json"}
-        )
-        print(f"Result: {result}")
-        return
+    # https://pushover.net/api
+    post = {
+        'user': pushover_user_key,
+        'token': pushover_api_token,
+        'title': f'GCB {pubsub_text_payload}',
+        'message': f'Build ID:\n{pubsub_build_id}',
+        'url': f'{console_url}?project={pubsub_project_id}',
+        'url_title': pubsub_project_id
+    }
+    # https://requests.readthedocs.io/
+    result = requests.post(
+        "https://api.pushover.net/1/messages.json",
+        json=post,
+    )
+    print(f"Result: {result}")
+    return
