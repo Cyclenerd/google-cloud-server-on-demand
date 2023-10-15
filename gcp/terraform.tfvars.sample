@@ -27,3 +27,9 @@ max-vms = "700"
 
 # [OPTIONAL] Discord webhook URL
 #discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"
+
+# [OPTIONAL] The user/group key (not e-mail address) of your Pushover user
+#pushover-user-key = "[PUSHOVER-USER-KEY]"
+
+# [OPTIONAL] Your Pushover application's API token/key
+#pushover-api-token = "[PUSHOVER-API-TOKEN]"

@@ -5,7 +5,7 @@ resource "google_cloudbuild_trigger" "build-os-images" {
   name        = "build-os-images"
   description = "Push to branch trigger to build custom OS images (Terraform managed)"
 
-  included_files = [ "cloudbuild/linux/**" ]
+  included_files = ["cloudbuild/linux/**"]
   trigger_template {
     project_id  = google_project.my.project_id
     repo_name   = google_sourcerepo_repository.repo.name

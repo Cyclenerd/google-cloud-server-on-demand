@@ -253,7 +253,11 @@ This Cloud Build job then starts your VM again. Feel free to test it 😊.
 
 ### Cloud Build notifications
 
-Get notified via [Discord](https://discord.com/) when a Cloud Build job is failed (`ERROR`) or timed out (`TIMEOUT`).
+Get notified via [Discord](https://discord.com/) and/or [Pushover](https://pushover.net/) when a Cloud Build job is failed (`ERROR`) or timed out (`TIMEOUT`).
+
+#### Discord
+
+Get notified via [Discord](https://discord.com/):
 
 ![Image: Discord](./img/cloudbuild-discord.png)
 
@@ -268,8 +272,37 @@ Get notified via [Discord](https://discord.com/) when a Cloud Build job is faile
 1. Add the Discord webhook URL to `terraform.tfvars` in `gcp` directory:
 	
 	```text
-	# Discord webhook URL
 	discord-webhook-url = "https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN]"
+	```
+
+1. Deploy Cloud Function
+	
+	```bash
+	terraform apply
+	```
+
+You can test the notification with the manual Cloud Build trigger `simulate-error`.
+
+#### Pushover
+
+Get notified via [Pushover](https://pushover.net/):
+
+![Image: Pushover](./img/cloudbuild-pushover.png)
+
+1. Register your application, set its name and upload an icon, and get an API token in return: <https://pushover.net/apps/build>
+
+	Example icon:
+
+	![Image: Pushover icon](./img/button-icon-72x72.png)
+
+	*MazeNL77, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Perspective-Button-Stop-icon.png)*
+
+
+1. Add your Pushover user/group key (not e-mail address) and the application's API token/key to `terraform.tfvars` in `gcp` directory:
+	
+	```text
+	pushover-user-key = "[PUSHOVER-USER-KEY]"
+	pushover-api-token = "[PUSHOVER-API-TOKEN]"
 	```
 
 1. Deploy Cloud Function

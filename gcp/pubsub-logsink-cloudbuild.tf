@@ -43,3 +43,13 @@ resource "google_pubsub_topic_iam_member" "logsink-cloudfunction-cloudbuild" {
   member     = "serviceAccount:${google_service_account.discord.email}"
   depends_on = [null_resource.wait-for-discord]
 }
+
+# Allow service account for Cloud Function to send notifications to Pushover to read topic
+resource "google_pubsub_topic_iam_member" "logsink-cloudfunction-pushover" {
+  project = google_project.my.project_id
+  topic   = google_pubsub_topic.logsink-cloudbuild.name
+  # https://cloud.google.com/iam/docs/understanding-roles#pub-sub-roles
+  role       = "roles/pubsub.subscriber"
+  member     = "serviceAccount:${google_service_account.pushover.email}"
+  depends_on = [null_resource.wait-for-pushover]
+}

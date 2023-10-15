@@ -123,3 +123,17 @@ variable "discord-webhook-url" {
   description = "Your Discord webhook URL (example: https://discord.com/api/webhooks/[WEBHOOK-ID]/[WEBHOOK-TOKEN])"
   default     = ""
 }
+
+variable "pushover-user-key" {
+  type        = string
+  nullable    = false
+  description = "The user/group key (not e-mail address) of your Pushover user"
+  default     = ""
+}
+
+variable "pushover-api-token" {
+  type        = string
+  nullable    = false
+  description = "Your Pushover application's API token/key"
+  default     = ""
+}
