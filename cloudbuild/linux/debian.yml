@@ -41,3 +41,7 @@
         owner: root
         group: root
         mode: '0755'
+    - name: Install htop
+      ansible.builtin.apt:
+        name: htop
+        state: present

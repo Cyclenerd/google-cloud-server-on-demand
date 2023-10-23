@@ -35,3 +35,8 @@
         owner: root
         group: root
         mode: '0755'
+    - name: Install htop
+      community.general.zypper:
+        name: htop
+        state: present
+
