@@ -134,7 +134,7 @@
 
     # Timezone
     - name: Set timezone
-      timezone:
+      community.general.timezone:
         name: "{{ timezone | default('UTC') }}"
 
     # User
