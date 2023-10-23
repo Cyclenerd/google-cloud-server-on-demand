@@ -1,6 +1,6 @@
 ---
 
-- name: openSUSE
+- name: OpenSUSE
   hosts: default
   become: true
 
@@ -39,4 +39,3 @@
       community.general.zypper:
         name: htop
         state: present
-
