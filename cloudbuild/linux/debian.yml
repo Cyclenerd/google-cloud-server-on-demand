@@ -20,12 +20,12 @@
         name: php-cgi
         state: present
     - name: Enable FastCGI config
-      file:
+      ansible.builtin.file:
         src: "/etc/lighttpd/conf-available/10-fastcgi.conf"
         dest: "/etc/lighttpd/conf-enabled/10-fastcgi.conf"
         state: link
     - name: Enable PHP config
-      file:
+      ansible.builtin.file:
         src: "/etc/lighttpd/conf-available/15-fastcgi-php.conf"
         dest: "/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"
         state: link
