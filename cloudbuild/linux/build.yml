@@ -1,6 +1,6 @@
 # Build custom OS images
 steps:
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"
@@ -12,7 +12,7 @@ steps:
         echo    'Project ID             : $PROJECT_ID'
         echo    'Project Nr             : $PROJECT_NUMBER'
 
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"
@@ -24,7 +24,7 @@ steps:
         echo "Public Key :"
         cat "/workspace/cloudbuild/linux/ssh.key.pub" || exit 9
 
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"

@@ -1,10 +1,10 @@
 # Copy Docker cointainer image to Artifact Registry repository
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['pull', 'cyclenerd/google-cloud-gcp-tools-container:latest']
+    args: ['pull', 'cyclenerd/cloud-tools-container:latest']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'cyclenerd/google-cloud-gcp-tools-container:latest', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/cointainer/google-cloud-gcp-tools-container:latest']
+    args: ['tag', 'cyclenerd/cloud-tools-container:latest', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/cointainer/cloud-tools-container:latest']
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/cointainer/google-cloud-gcp-tools-container:latest']
+    args: ['push', '${_LOCATION}-docker.pkg.dev/$PROJECT_ID/cointainer/cloud-tools-container:latest']
 tags: ["copy-docker-image"]
 timeout: 600s

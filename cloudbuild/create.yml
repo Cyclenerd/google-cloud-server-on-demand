@@ -1,6 +1,6 @@
 # Create VM
 steps:
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"
@@ -25,7 +25,7 @@ steps:
         # Exit if SHA512 hash is less than 100 chars
         if [ $(jq -er '.password' < "/workspace/data.json" | wc -c) -lt "100" ]; then echo "SHA512 password hash too short!"; exit 9; fi
 
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"
@@ -37,7 +37,7 @@ steps:
         echo "Public Key :"
         cat "/workspace/ssh.key.pub" || exit 9
 
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"
@@ -75,7 +75,7 @@ steps:
           -var="image=$(jq -er '.image' < "/workspace/data.json")" \
           -auto-approve || exit 9
 
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"
@@ -87,7 +87,7 @@ steps:
         echo "'"
         bash "/workspace/cloudbuild/wait-for-ssh.sh" || exit 9
 
-  - name: cyclenerd/google-cloud-gcp-tools-container:latest
+  - name: cyclenerd/cloud-tools-container:latest
     entrypoint: "bash"
     args:
       - "-c"

@@ -53,7 +53,7 @@ The following technologies are used:
 - [x] [Cloud Source Repositories](https://cloud.google.com/source-repositories)
 - [x] [Cloud Pub/Sub](https://cloud.google.com/pubsub)
 - [x] [Cloud Build](https://cloud.google.com/build)
-	- [x] [Docker Container image](https://github.com/Cyclenerd/google-cloud-gcp-tools-container#readme)
+	- [x] [Docker Container image](https://github.com/Cyclenerd/cloud-tools-container#readme)
 - [x] [Cloud Function](https://cloud.google.com/functions)
 - [x] [Artifact Registry](https://cloud.google.com/artifact-registry)
 - [x] [Cloud DNS](https://cloud.google.com/dns)
@@ -136,7 +136,7 @@ further steps are executed in the cloud.
 
 3. Pub/Sub triggers Cloud Build
 4. A Cloud Build job is started
-	1. Cloud Build downloads [Docker container image](https://github.com/Cyclenerd/google-cloud-gcp-tools-container) with tools (Google Cloud CLI, Terraform, Ansible)
+	1. Cloud Build downloads [Docker container image](https://github.com/Cyclenerd/cloud-tools-container) with tools (Google Cloud CLI, Terraform, Ansible)
 	1. Required scripts are loaded from the Cloud Source Repository
 	1. Pub/Sub message is read and evaluated
 5. Terraform creates the infrastructure
@@ -341,7 +341,7 @@ The image then does not have to be downloaded from Docker Hub during the Cloud B
 ![Image: Copy container](./img/copy-image.png)
 
 1. Copy the image by running the manual trigger `copy-image`.
-1. Replace `cyclenerd/google-cloud-gcp-tools-container:latest` with `[LOCATION]-docker.pkg.dev/[PROJECT_ID]/cointainer/google-cloud-gcp-tools-container:latest` in the Cloud Build YAML files (i.e. [`create.yml`](./cloudbuild/create.yml)) in folder the [cloudbuild](./cloudbuild/).
+1. Replace `cyclenerd/cloud-tools-container:latest` with `[LOCATION]-docker.pkg.dev/[PROJECT_ID]/cointainer/cloud-tools-container:latest` in the Cloud Build YAML files (i.e. [`create.yml`](./cloudbuild/create.yml)) in folder the [cloudbuild](./cloudbuild/).
 1. Push changes to Cloud Source repository:
 
 	```bash
