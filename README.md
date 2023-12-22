@@ -32,11 +32,11 @@ Thanks to Google and the Internet, the hardware does not have to be physically l
 
 ## 🚀 Technology
 
-![Bagde: Google Cloud](https://img.shields.io/badge/Google%20Cloud-%234285F4.svg?logo=google-cloud&logoColor=white)
+![Badge: Google Cloud](https://img.shields.io/badge/Google%20Cloud-%234285F4.svg?logo=google-cloud&logoColor=white)
 ![Badge: Terraform](https://img.shields.io/badge/Terraform-%235835CC.svg?logo=terraform&logoColor=white)
 ![Badge: Packer](https://img.shields.io/badge/Packer-02A8EF.svg?logo=packer&logoColor=white)
 ![Badge: Ansible](https://img.shields.io/badge/Ansible-%231A1918.svg?logo=ansible&logoColor=white)
-![Bagde: Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-C51A4A?logo=Raspberry-Pi)
+![Badge: Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-C51A4A?logo=Raspberry-Pi)
 
 The following technologies are used:
 
@@ -106,10 +106,10 @@ All components put together correctly result in the Server on Demand Appliance G
 
 ## 🪄 Process of creating a VM
 
-![Bagde: Fedora](https://img.shields.io/badge/Fedora-51A2DA.svg?logo=fedora&logoColor=white)
-![Bagde: Ubuntu](https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white)
-![Bagde: Debian](https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white)
-![Bagde: openSUSE](https://img.shields.io/badge/openSUSE-73BA25.svg?logo=opensuse&logoColor=white)
+![Badge: Fedora](https://img.shields.io/badge/Fedora-51A2DA.svg?logo=fedora&logoColor=white)
+![Badge: Ubuntu](https://img.shields.io/badge/Ubuntu-E95420.svg?logo=ubuntu&logoColor=white)
+![Badge: Debian](https://img.shields.io/badge/Debian-A81D33.svg?logo=debian&logoColor=white)
+![Badge: openSUSE](https://img.shields.io/badge/openSUSE-73BA25.svg?logo=opensuse&logoColor=white)
 
 https://user-images.githubusercontent.com/176242/205736692-b19bca68-a94c-4e95-8c32-79a9f7dfc7a9.mp4
 
