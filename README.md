@@ -138,6 +138,8 @@ further steps are executed in the cloud.
 4. A Cloud Build job is started
 	1. Cloud Build downloads [Docker container image](https://github.com/Cyclenerd/cloud-tools-container) with tools (Google Cloud CLI, Terraform, Ansible)
 	1. Required scripts are loaded from the Cloud Source Repository
+		* Effective June 17, 2024, Cloud Source Repositories isn't available to new customers!
+		* If your organization hasn't previously used Cloud Source Repositories, you can't enable the API or use Cloud Source Repositories.
 	1. Pub/Sub message is read and evaluated
 5. Terraform creates the infrastructure
 	* Static public IP is registered
