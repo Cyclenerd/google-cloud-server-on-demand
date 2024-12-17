@@ -25,7 +25,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get install ansible-lint flake8
+        run: |
+          sudo pip install flake8
+          sudo pip install ansible-lint
       # https://github.com/hashicorp/setup-terraform
       - uses: hashicorp/setup-terraform@v3
 
