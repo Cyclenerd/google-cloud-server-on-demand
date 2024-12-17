@@ -11,17 +11,24 @@ jobs:
   test:
     # The type of runner that the job will run on
     # https://github.com/actions/virtual-environments/
-    # [x] shellcheck
-    # [x] terraform
-    # [x] ansible
-    # [ ] ansible-lint
-    # [_] flake8
-    runs-on: ubuntu-22.04
+    #
+    # Ubuntu 24.04:
+    #  [x] shellcheck
+    #  [_] terraform
+    #  [x] ansible
+    #  [ ] ansible-lint
+    #  [_] flake8
+    #  [x] yamllint
+    runs-on: ubuntu-latest
     steps:
-      - name: Install dependencies
-        run: sudo apt-get install ansible-lint flake8
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get install ansible-lint flake8
+      # https://github.com/hashicorp/setup-terraform
+      - uses: hashicorp/setup-terraform@v3
+
       # https://github.com/marketplace/actions/setup-tflint
       - name: Install tflint
         uses: terraform-linters/setup-tflint@v4
