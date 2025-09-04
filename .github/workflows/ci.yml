@@ -24,10 +24,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Install dependencies
         run: |
-          sudo pip install flake8
-          sudo pip install ansible-lint
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r test/requirements.txt
       # https://github.com/hashicorp/setup-terraform
       - uses: hashicorp/setup-terraform@v3
 
@@ -37,4 +43,6 @@ jobs:
         with:
           tflint_version: latest
       - name: Test
-        run: cd test && bash test.sh
+        run: |
+          source .venv/bin/activate
+          cd test && bash test.sh
