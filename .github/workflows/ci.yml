@@ -34,6 +34,7 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           pip install -r test/requirements.txt
+          ansible-galaxy collection install -r test/requirements.yml
       # https://github.com/hashicorp/setup-terraform
       - uses: hashicorp/setup-terraform@v3
 
