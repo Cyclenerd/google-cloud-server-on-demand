@@ -38,6 +38,12 @@ Thanks to Google and the Internet, the hardware does not have to be physically l
 ![Badge: Ansible](https://img.shields.io/badge/Ansible-%231A1918.svg?logo=ansible&logoColor=white)
 ![Badge: Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-C51A4A?logo=Raspberry-Pi)
 
+> [!CAUTION]
+> **Killed by Google:** Starting June 17, 2024, the Google Cloud Service "[Cloud Source Repositories](https://cloud.google.com/source-repositories)" required for this project will no longer be accessible to new customers.
+> If your organization hasn't previously used Cloud Source Repositories, you can't enable the API or use Cloud Source Repositories.
+> New projects not connected to an organization can't enable the Cloud Source Repositories API.
+> Organizations that have used Cloud Source Repositories prior to June 17, 2024 are not affected by this change. 
+
 The following technologies are used:
 
 <details>
