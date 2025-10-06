@@ -40,7 +40,7 @@ jobs:
 
       # https://github.com/marketplace/actions/setup-tflint
       - name: Install tflint
-        uses: terraform-linters/setup-tflint@v5
+        uses: terraform-linters/setup-tflint@v6
         with:
           tflint_version: latest
       - name: Test
