@@ -11,7 +11,6 @@ While development has ceased, the codebase remains available for reference and h
 
 * New features and bug fixes will no longer be implemented.
 * Issues and pull requests will not be reviewed or merged.
-* This container image will be delisted from Docker Hub in August 2024. Please make alternative arrangements before then.
 
 **Accessing the Codebase:**
 
